@@ -1,0 +1,6 @@
+\contentsline {section}{\tocsection {}{1}{Introduction}}{4}{section.0.1}%
+\contentsline {section}{\tocsection {}{2}{Persistent Homology}}{5}{section.0.2}%
+\contentsline {subsection}{\tocsubsection {}{2.1}{Persistent Homology Morse Theory}}{5}{subsection.0.2.1}%
+\contentsline {subsection}{\tocsubsection {}{2.2}{Extended Persistent Homology}}{5}{subsection.0.2.2}%
+\contentsline {subsection}{\tocsubsection {}{2.3}{Persistent Homology}}{5}{subsection.0.2.3}%
+\contentsline {chapter}{\tocchapter {Chapter}{}{Index}}{7}{chapter*.1}%

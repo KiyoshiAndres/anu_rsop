@@ -1,0 +1,5 @@
+\standalonepreambles
+\subpreamble{sections/differential_topology.tex}
+\usepackage [subpreambles=true]{standalone}\usepackage {import}\usepackage {blindtext}
+\endsubpreamble
+\endstandalonepreambles

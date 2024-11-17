@@ -1,0 +1,81 @@
+\documentclass[]{amsbook}
+
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+\usepackage{tikz-cd}
+\usepackage{tikz}
+\usepackage{pgfplots}
+
+
+\usepackage{float}
+
+
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+
+\usepackage{hyperref}
+\usepackage{breakcites}
+
+
+\usepackage[utf8]{inputenc}
+%opening
+
+
+
+\theoremstyle{definition}
+\newtheorem*{definition}{Definition}
+
+
+\theoremstyle{definition}
+\newtheorem*{example}{Example}
+
+\newcommand{\mathdefault}{}
+
+\pgfplotsset{compat=1.14}
+
+\usepackage{subfiles}
+
+%\makeatletter
+%\newcommand{\insubfile}[1]{\ifx\@onlypreamble\@notprerr\else#1\fi}
+%\makeatother
+
+\usepackage{imakeidx}
+\makeindex[columns=2, title=Index]
+
+\bibliographystyle{apalike}
+
+
+
+\title{Topological Data Analysis}
+\author{Kiyoshi}
+\date{ }
+
+	\begin{document}
+
+
+	\maketitle
+	
+	\tableofcontents
+	
+	\section{Introduction}
+	
+		\subfile{sections/differential_topology}
+		
+		
+	\section{Persistent Homology}	
+	
+		\subfile{sections/persistent_homology}
+		
+		
+	
+
+
+	
+	\bibliography{refs}
+	
+	\printindex
+	
+
+	
+\end{document}

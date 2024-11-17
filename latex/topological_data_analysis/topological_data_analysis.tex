@@ -1,0 +1,134 @@
+\documentclass[]{article}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{breakcites}
+\usepackage{hyperref}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{tikz-cd}
+\usepackage{tikz}
+\usepackage{pgfplots}
+
+\usepackage[utf8]{inputenc}
+%opening
+
+
+\theoremstyle{definition}
+\newtheorem*{definition}{Definition}
+
+\theoremstyle{definition}
+\newtheorem*{example}{Example}
+
+\newcommand{\mathdefault}{}
+
+\pgfplotsset{compat=1.14}
+
+\begin{document}
+	
+	\begin{titlepage}
+		
+		\title{%
+			\textbf{Topological Data Analysis}
+		}
+		
+		\author{Kiyoshi Andrés Takeuchi}
+		\maketitle
+		
+	\end{titlepage}
+
+\tableofcontents
+
+
+\section*{Introduction}
+
+I begin with three chapters introducing the basic concepts we will be using. Some of these are covered in core graduate courses at some universities.
+	
+\part{Mathematical Preamble}	
+
+\section{Morse Theory}
+
+The idea of Morse theory is that you can obtain some information about a geometric space from the functions defined on it. For example, we can have unbounded continuous functions on $\mathbb{R}$, yet this is not possible in $S^1$ since it is compact \cite{matsumoto2002introduction}.
+
+Smooth manifolds, functions between smooth manifolds, and other smooth manifold concepts are defined as in \cite[150]{lee2003introduction}. We will usually assume functions $f$ of manifolds to be smooth, or at least twice differentiable so that their Hessians exist.
+
+\begin{definition}
+	A critical point $p_0\in M$ is said to be \textbf{non-degenerate} for the function $f$ if its \textbf{Hessian} 
+	\begin{equation}
+		H_f=
+	\end{equation}
+	
+	
+	$H_f(p_0)$ has non-zero determinant at $p_0$.
+\end{definition}
+
+I would like to keep some visual examples on hand. To that end, consider the following surfaces:
+
+\begin{figure}[H]
+	\begin{center}
+		\input{image_01.pgf}
+	\end{center}
+	\caption{A surface given by the equation $Z=$}
+\end{figure}
+
+\begin{example}
+	
+\end{example}
+
+\begin{example}
+	
+\end{example}
+
+\begin{definition}
+	
+\end{definition}
+
+\begin{example}
+	Let's check that the definition of a vector field on a manifold indeed generalizes the definition on $\mathbb{R}^n$.
+\end{example}
+
+
+
+\begin{definition}
+	A function $f$ is said to be \textbf{morse} if all its critical points are non-degenerate.
+\end{definition}
+
+\section{Algebraic Topology}
+
+For definitions on algebraic structures like groups, rings, fields, see \cite{dummit2003abstract} or \cite{lang2005algebra}.
+
+\section{Persistent Homology}
+
+\subsection{Persistent Homology Morse Theory}
+
+\subsection{Extended Persistent Homology}
+
+\section{Probability and Statistics}
+
+For general measure theoretic definitions, see \cite{folland1999real}. 
+
+
+\part{Analysis of Lung Geometry}
+
+\section{Data Analysis}
+
+\section{Software}
+
+\section{Lungs}
+
+\section{Results}
+
+
+
+
+
+
+
+
+
+\pagebreak
+
+\bibliographystyle{apalike}
+\bibliography{refs}
+
+
+\end{document}
