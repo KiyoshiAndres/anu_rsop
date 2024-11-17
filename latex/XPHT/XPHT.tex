@@ -125,7 +125,63 @@
 	
 	
 	
-\section*{Test}
+\section*{Example}
+
+\begin{theorem}
+	Let $A$ be an embedded $n$-manifold with boundary $\partial A$. Let $v$ be a direction such that $h_v^{A}: A \rightarrow \mathbb{R}$ is a Morse function. Let the interval	decomposition of the $k$-dimensional extended persistent homology of $h_v^{\partial A}: \partial A \rightarrow \mathbb{R}$ be
+	$$
+	\mathrm{XPH}_k\left(\partial A, h_v\right)=\bigoplus_{\left[b_i, d_i\right) \in S_X} \mathcal{I}_{\left[b_i, d_i\right)} .
+	$$
 	
+	Let $J_A^k$ be the subset of intervals $\left[b_i, d_i\right)$ such that $b_i=\left(h_v(p)\right.$, ord) for some $p \in \operatorname{Crit}\left(h_v^A,(k,+1)\right)$ , or $b_i=\left(h_v(p)\right.$, rel $)$ for some $p \in \operatorname{Crit}\left(h_v^A,(n-k-1,-1)\right)$. Then
+	$$
+	\mathrm{XPH}_k\left(A, h_v\right)=\bigoplus_{\left[b_i, d_i\right) \in J_A^k} \mathcal{I}_{\left[b_i, d_i\right)} .
+	$$
+\end{theorem}
+
+
+\begin{example}
+	Consider Figure 1. And we will compute $\mathrm{XPH}_0$.
+\end{example}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[scale=0.5]{example_figure_1.png}
+	\caption{Example figure}
+\end{figure}
+	
+	
+	\begin{theorem}
+		Let $A \subset \mathbb{R}^2$ be a 2-dimensional piecewise linear manifold with boundary $X=\partial$. Fix $v \in S^1$. The 0-dimensional persistent homology of $h_v^X: X \rightarrow \mathbb{R}$ can be written as
+		$$
+		\mathrm{PH}_0\left(X, h_v^X\right)=\oplus_{i=1}^m \mathcal{I}_{\left[h_v\left(y_{j_i}\right), d_i\right)}
+		$$
+		where $y_{j_1}, \ldots y_{j_m}$ are the set of vertex representatives, and $d_1, \ldots d_m \in \mathbb{R} \cup \infty$. Here we have only included intervals with positive length.
+		
+		Let $J^{\text {ord }}$ be the subset of $\{1,2, \ldots m\}$ such that $d_i$ is finite and $y_{j_i}$ is (+)critical for $h_v^A$. Then
+		$$
+		\operatorname{Ord}_0\left(A, h_v^A\right)=\oplus_{i \in J^{\text {ord }}} \mathcal{I}_{\left[\left(h_v\left(y_{j_i}\right), \text { ord }\right),\left(d_i, \text { ord }\right)\right)}
+		$$
+		
+		Now let $J^{\text {rel }}$ be the subset of $\{1,2, \ldots m\}$ such that $d_i$ is finite but $y_i$ is not $(+)$-critical for $h_v^A$.
+		$$
+		\operatorname{Rel}_1\left(A, h_v^A\right)=\oplus_{i \in J \mathrm{rel}} \mathcal{I}_{\left[\left(d_i, \mathrm{rel}\right),\left(h_v\left(y_{j_i}\right), \text { rel }\right)\right)}
+		$$
+	\end{theorem}
+	
+	\begin{theorem}
+		
+	\end{theorem}
+
+	\begin{theorem}
+		Proposition 4.20. Let $A \subset \mathbb{R}^n$ be an $n$-manifold with boundary $X=\partial A$. Let $v$ be a direction such that $h_v^A: A \rightarrow \mathbb{R}$ is a Morse function. Let $\left\{X_1, \ldots X_k\right\}$ be the interior boundary components of $X$ and $\left\{Y_1, \ldots Y_l\right\}$ be the exterior boundary components of $X$. Then
+		$$
+		\operatorname{Ess}_0\left(A, h_v\right)=\sum_{j=1}^l \mathcal{I}_{\left[\left(\min \left\{h_v\left(Y_j\right)\right\}, \operatorname{ord}\right),\left(\max \left\{h_v\left(Y_j\right)\right\}, \text { rel }\right)\right)}
+		$$
+		and
+		$$
+		\operatorname{Ess}_{n-1}\left(A, h_v\right)=\sum_{i=1}^k \mathcal{I}_{\left[\left(\max \left\{h_v\left(X_i\right)\right\}, \operatorname{ord}\right),\left(\min \left\{h_v\left(X_i\right)\right\}, \text { rel }\right)\right)}
+		$$
+	\end{theorem}
 	
 \end{document}
