@@ -11,7 +11,9 @@
 \usepackage{amssymb}
 \usepackage{fancyhdr}
 \pagestyle{fancy}
-\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{tabularx}
+\usepackage[font={small, sf},labelfont=bf]{caption}
 
 
 \usepackage{titlesec}
@@ -21,7 +23,7 @@
 
 \setlength{\headheight}{40pt}
 \usepackage{graphicx}
-
+\usepackage[export]{adjustbox}
 
 
 \usepackage{imakeidx}
@@ -139,16 +141,135 @@
 	$$
 \end{theorem}
 
+For simplicity, we will classify all possible critical points.
+
+\begin{definition}
+	
+	For a given vertex, we have $3\times 2$ possibilities for critical points.
+	
+	\begin{figure}[ht]
+		\centering
+		\includegraphics[scale=0.5]{minima.png}
+		\caption{Index= (0,-)}
+	\end{figure}
+
+	\begin{figure}[ht]
+		\centering
+		\includegraphics[scale=0.5]{maxima.png}
+		\caption{Index= (0,-)}
+	\end{figure}
+	
+	\begin{figure}[ht]
+		\centering
+		\includegraphics[scale=0.5]{saddle_point.png}
+		\caption{Index= (0,-)}
+	\end{figure}
+	
+\end{definition}
+
+\pagebreak
+
+
+
+
+	\begin{wrapfigure}[5]{R}{0.65\textwidth}
+	\vspace{-1.75\baselineskip}
+	\begin{tabularx}{\linewidth}{@{} cX @{}}
+		\includegraphics[scale=0.41,valign=T]{example_figure_1.png}
+		&
+		\caption[Illustration of multiheaded attention]
+		{Illustration of multiheaded attention. The two highlighted attention heads have learned to associate \textit{"it"} with different parts of the sentence.}
+		\label{fig:transformer3}
+	\end{tabularx}
+\end{wrapfigure}
+
+
+
+It is well known that the homology groups of the torus are:
+\begin{enumerate}
+	\item $H_0(T)=\mathbb{Z}$
+	\item $H_1(T)=\mathbb{Z}\oplus\mathbb{Z}$
+	\item $H_2(T)=\mathbb{Z}$
+\end{enumerate}
+
+As for the solid torus:
+
+\begin{enumerate}
+	\item $H_0(T)=\mathbb{Z}$
+	\item $H_1(T)=\mathbb{Z}$
+	\item $H_2(T)=0$
+\end{enumerate}
+
+
 
 \begin{example}
-	Consider Figure 1. And we will compute $\mathrm{XPH}_0$.
+	Consider Figure 1. And we will compute $\mathrm{XPH}_0$. We will also compare what is happening with the critical points with respect to both $A$ and $\partial A$.
+	
+	\noindent
+
+			We will start with the boundary $\partial A$ first. 
+			
+
+			
+			
+		\begin{enumerate}
+			\item $P_0$ is a local minimum. It creates a connected component. It is actually the global minimum.
+			\item $P_1$ is another local minimum. It creates another class in $H_0$.
+			\item $P_2$ This is a saddle which joins the two connected components. So we pair $(P_1,P_2)$.
+			\item $P_3$ This is a saddle which looks like a handle. This forms an essential class in $H_1$.
+			\item $P_4$ adds another handle which forms another class in $H_1$.
+			\item $P_5$ is a local maximum whichs joins two cycles, so we pair $(P_4,P_5)$.
+			\item $P_6$ is a local minimum, which starts a class in $H_0$.
+			\item $P_7$ is a saddle, which joins the component, so we pair $(P_6,P_7)$.
+			\item $P_8$ is a saddle, which forms an essential class in $H_1$.
+			\item $P_9$ is a saddle which looks like a handle, which forms a class in $H_1$.
+			\item $P_{10}$ is a local maximum, which kills a class in $H_1$, so we pair $(P_9,P_{10})$.
+			\item $P_{11}$ Is a global maximum, which creates a class in $H_2$.
+		\end{enumerate}
+
+
+	
+
+	
+
+
+
+
+	Let us contrast this with the solid torus with boundary $A$.
+	
+	\begin{enumerate}
+		\item $P_0$ is a local minimum. It creates a connected component. It is actually the global minimum.
+		\item $P_1$ is another local minimum. It creates another class in $H_0$.
+		\item $P_2$ This is a saddle which joins the two connected components. So we pair $(P_1,P_2)$.
+		\item $P_3$ 
+		\item $P_4$ 
+		\item $P_5$ 
+		\item $P_6$ 
+		\item $P_7$ 
+		\item $P_8$ 
+		\item $P_9$ 
+		\item $P_{10}$ 
+		\item $P_{11}$ Is a global maximum. Homology does not change.
+	\end{enumerate} 
+
+	$P_3$ is where things start becoming different for the solid donut and for its boundary.
+
+	
+	
+	
+	
+	
+	
+	
 \end{example}
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[scale=0.5]{example_figure_1.png}
-	\caption{Example figure}
+	\includegraphics[scale=0.5]{handle.png}
+	\caption{Handle}
 \end{figure}
+
+
 	
 	
 	\begin{theorem}
