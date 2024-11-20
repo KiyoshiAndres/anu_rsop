@@ -141,11 +141,14 @@
 	$$
 \end{theorem}
 
-For simplicity, we will classify all possible critical points.
+For simplicity, we will illustrate all possible critical points.
 
 \begin{definition}
 	
 	For a given vertex, we have $3\times 2$ possibilities for critical points.
+	
+	If the figure encapsulates volume:
+	If volume surrounds the figure: 
 	
 	\begin{figure}[ht]
 		\centering
@@ -177,15 +180,15 @@ For simplicity, we will classify all possible critical points.
 	\begin{tabularx}{\linewidth}{@{} cX @{}}
 		\includegraphics[scale=0.41,valign=T]{example_figure_1.png}
 		&
-		\caption[Illustration of multiheaded attention]
-		{Illustration of multiheaded attention. The two highlighted attention heads have learned to associate \textit{"it"} with different parts of the sentence.}
+		\caption[Wonky Torus]
+		{Wonky Torus. This is a "general" slice of a torus with boundary. The circles represent critical points.}
 		\label{fig:transformer3}
 	\end{tabularx}
 \end{wrapfigure}
 
 
 
-It is well known that the homology groups of the torus are:
+It is well known what the homology groups of the torus are:
 \begin{enumerate}
 	\item $H_0(T)=\mathbb{Z}$
 	\item $H_1(T)=\mathbb{Z}\oplus\mathbb{Z}$
@@ -228,28 +231,22 @@ As for the solid torus:
 		\end{enumerate}
 
 
-	
-
-	
-
-
-
-
+\noindent
 	Let us contrast this with the solid torus with boundary $A$.
 	
 	\begin{enumerate}
 		\item $P_0$ is a local minimum. It creates a connected component. It is actually the global minimum.
 		\item $P_1$ is another local minimum. It creates another class in $H_0$.
 		\item $P_2$ This is a saddle which joins the two connected components. So we pair $(P_1,P_2)$.
-		\item $P_3$ 
-		\item $P_4$ 
-		\item $P_5$ 
-		\item $P_6$ 
-		\item $P_7$ 
-		\item $P_8$ 
-		\item $P_9$ 
-		\item $P_{10}$ 
-		\item $P_{11}$ Is a global maximum. Homology does not change.
+		\item $P_3$ Contributes nothing
+		\item $P_4$ Contributes nothing
+		\item $P_5$ Contributes nothing
+		\item $P_6$ Creates connected component.
+		\item $P_7$ Merges created component
+		\item $P_8$ Creates H1 cycle
+		\item $P_9$ Contributes nothing
+		\item $P_{10}$ Contributes nothing
+		\item $P_{11}$ Is a global maximum. Contributes nothing
 	\end{enumerate} 
 
 	$P_3$ is where things start becoming different for the solid donut and for its boundary.
