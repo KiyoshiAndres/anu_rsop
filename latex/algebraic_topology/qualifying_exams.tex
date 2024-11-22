@@ -123,12 +123,33 @@
 
 \begin{document}
 	
-\section*{}
+\section*{Path Connected}
+
+\begin{proposition}
+	A disjoint union of locally path-connected spaces is locally path-connected.
+\end{proposition}
+
+\begin{proposition}
+	A locally contractible space is locally path-connected.
+\end{proposition}
+
+\begin{proposition}
+	A CW space is locally contractible.
+\end{proposition}
+
+\begin{proposition}
+	The quotient of a locally path-connected space is locally path-connected.
+\end{proposition}
+
+\section{Covering Space}
 
 \begin{definition}
 	A \textbf{universal covering} is a simply connected covering. They are unique up to homeomorphism.
 \end{definition}
 
+\begin{proposition}
+	A connected topological space has a universal cover iff it is locally path-connected and semilocally simply connected.
+\end{proposition}
 
 \begin{proposition}
 	The number of sheets of a covering space $p : ( \widetilde{X}, x_0)\to (X, x_0)$
@@ -154,12 +175,66 @@
 	\]
 \end{proposition}
 
+\begin{lemma}
+	The number of sheets of the universal covering space is 
+\end{lemma}
+
+\begin{proposition}
+	Deck transformations don't have fixed points.
+\end{proposition}
+
+\pagebreak
+
+\section{CW Complexes}
+
+\begin{proposition}
+	A CW complex is semi-locally simply connected.
+\end{proposition}
+
+\begin{proposition}
+	A connected CW complex has a universal cover.
+\end{proposition}
+
+\begin{proposition}
+	A covering space of a CW complex is also a CW complex, with cells projecting homeomorphically to cells.
+\end{proposition}
+
+\begin{proposition}
+	If $X$ is a finite CW complex and if $Y\to X$ is a $n$-sheeted covering then $Y$ is a finite CW complex and $\Xi(Y)=n\cdot\Xi(X)$. 
+\end{proposition}
+
+
+\pagebreak
+
+\section{Named Theorems}
+
+\begin{definition}
+	The Lefschetz Number
+	$$\Lambda(f):=\sum_n \textrm{tr}(f_*:H_n(X;\mathbb{Q})\to H_n(X;\mathbb{Q})) $$
+\end{definition}
+
+\begin{theorem}[Lefschetz Fixed Point Theorem]
+	If $X$ is a triangulable space or a retract of a simplicial complex, and if $f:X\to X$ is continuous, then if $\Lambda(f)\neq 0$, $f$ has a fixed point.
+\end{theorem}
+
+\pagebreak
+
+\section{Problems}
+
 \begin{example}
-	Suppose that $X$ is a finite connected CW complex such that $\pi_1(X)$ is finite and nontrivial. Prove that the universal covering $\tilde{X}$ of $X$ cannot be contractible.
+	Suppose that $X$ is a finite connected CW complex such that $\pi_1(X)$ is finite and nontrivial. Prove that the universal covering $\widetilde{X}$ of $X$ cannot be contractible.
 \end{example}
 
 \begin{proof}
+	Since $X$ is a connected CW complex it has a universal cover, which is also a CW complex since $X$ is a CW complex. Since $\pi_1(X)$ is finite, the universal cover has a finite number of sheets, and since $X$ is a finite CW complex, each sheet has finite cells. So $\widetilde{X}$ is a finite CW complex. 
+	\medbreak
 	
+	Suppose for contradiction that $\widetilde{X}$ is contractible. Then $H_0(\widetilde{X})=\mathbb{Z}$ and $H_i(\widetilde{X})=0$ for $i>0$. Since $f$ is continuous, and $\widetilde{X}$ is simply connected and hence connected,
+	Let $p\in \widetilde{X}$ and since $\widetilde{X}$ is connected there is only one generator of $H_0(\widetilde{X};\mathbb{Q}) $, $[p]$. Then $[p]=1$. And $f_*$ maps $[p]$ to $[f(p)]$ but since $f$ is continuous and $f(p)\in\widetilde{X}$, $[f(p)]=[p]$ hence $f_*$ is the identity and its trace must be $1$.  	
+	Thus any continuous self map $f:\widetilde{X}\to\widetilde{X}$ has Lefschetz number $1$, and thus has a fixed point.  
+	Whic is a contradiction since $\pi_1(X)$ is non-trivial and is isomorphic to the group of Deck transformations of $\widetilde{X}$ and thus there is a non-trivial Deck transformation, and Deck transformations don't have fixed points. 
+	
+	Alternatively, by computing $\chi(\widetilde{X})$ using homology and the fact that $\widetilde{X}$ is contractible, $1=\chi(\widetilde{X})=|\pi_1(X)|\cdot \chi(X)$ so that since $\pi_1(X)$ is non-trivial this is impossible.
 \end{proof}
 	
 	
