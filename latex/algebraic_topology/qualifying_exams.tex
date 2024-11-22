@@ -129,6 +129,31 @@
 	A \textbf{universal covering} is a simply connected covering. They are unique up to homeomorphism.
 \end{definition}
 
+
+\begin{proposition}
+	The number of sheets of a covering space $p : ( \widetilde{X}, x_0)\to (X, x_0)$
+	with $X$ and $\widetilde{X}$ path-connected equals the index of $p_*(\pi_1(\widetilde{X}, x_0))$ in $\pi_1(X, x_0)$ .
+\end{proposition}
+
+\begin{proposition}
+	Let $p : (\widetilde{X}, \widetilde{x}_0) \to (X, x_0) $ be a path-connected covering space of the path-connected, locally path-connected space $X$, and let $H = p_* \left( \pi_1(\widetilde{X}, \widetilde{x}_0) \right) \subset \pi_1(X, x_0)$. Then:
+	
+	\begin{enumerate}
+		\item The covering space \( p : \widetilde{X} \to X \) is normal (regular) if and only if \( H \) is a normal subgroup of \( \pi_1(X, x_0) \).
+		
+		\item The group of deck transformations \( \text{Deck}(\widetilde{X}/X) \) is isomorphic to the quotient \( N(H)/H \), where \( N(H) \) is the normalizer of \( H \) in \( \pi_1(X, x_0) \).
+	\end{enumerate}
+	
+	\noindent In particular, if \( \widetilde{X} \to X \) is a normal covering, then
+	\[
+	\text{Deck}(\widetilde{X}/X) \cong \pi_1(X, x_0)/H.
+	\]
+	Hence, for the universal cover \( \widetilde{X} \to X \), we have
+	\[
+	\text{Deck}(\widetilde{X}/X) \cong \pi_1(X, x_0).
+	\]
+\end{proposition}
+
 \begin{example}
 	Suppose that $X$ is a finite connected CW complex such that $\pi_1(X)$ is finite and nontrivial. Prove that the universal covering $\tilde{X}$ of $X$ cannot be contractible.
 \end{example}
