@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.11.18)  22 NOV 2024 22:03
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.11.18)  23 NOV 2024 10:05
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -925,8 +925,8 @@ Package rerunfilecheck Info: File `qualifying_exams.out' has not changed.
 (rerunfilecheck)             Checksum: A2B877471F89BC5D69D923364049A97A;421.
  ) 
 Here is how much of TeX's memory you used:
- 25447 strings out of 478994
- 488320 string characters out of 5858183
+ 25449 strings out of 478994
+ 488338 string characters out of 5858183
  794997 words of memory out of 5000000
  42489 multiletter control sequences out of 15000+600000
  407549 words of font info for 44 fonts, out of 8000000 for 9000
@@ -944,10 +944,10 @@ l/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local
 /texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/t
 exlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/te
 xlive/2021/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on qualifying_exams.pdf (4 pages, 127803 bytes).
+Output written on qualifying_exams.pdf (4 pages, 127929 bytes).
 PDF statistics:
- 117 PDF objects out of 1000 (max. 8388607)
- 98 compressed objects within 1 object stream
- 28 named destinations out of 1000 (max. 500000)
+ 119 PDF objects out of 1000 (max. 8388607)
+ 100 compressed objects within 1 object stream
+ 30 named destinations out of 1000 (max. 500000)
  45 words of extra memory for PDF output out of 10000 (max. 10000000)
 
