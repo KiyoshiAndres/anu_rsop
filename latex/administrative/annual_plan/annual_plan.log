@@ -2,8 +2,8 @@ This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded forma
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**qualifying_exams.tex
-(./qualifying_exams.tex
+**annual_plan.tex
+(./annual_plan.tex
 LaTeX2e <2020-10-01> patch level 4
 L3 programming layer <2021-02-18>
 (/usr/local/texlive/2021/texmf-dist/tex/latex/base/article.cls
@@ -636,11 +636,11 @@ Package: multicol 2019/12/09 v1.8y multicolumn formatting (FMi)
 \colbreak@box=\box114
 \mc@col@check@num=\count303
 ))
-\qualifying_exams@idxfile=\write6
-\openout6 = `qualifying_exams.idx'.
+\annual_plan@idxfile=\write6
+\openout6 = `annual_plan.idx'.
 
 
-Writing index file qualifying_exams.idx
+Writing index file annual_plan.idx
 (/usr/local/texlive/2021/texmf-dist/tex/latex/hyperref/hyperref.sty
 Package: hyperref 2021-02-27 v7.00k Hypertext links for LaTeX
 
@@ -801,8 +801,8 @@ File: l3backend-pdftex.def 2021-03-18 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count321
 \l__pdf_internal_box=\box115
 )
-(./qualifying_exams.aux)
-\openout1 = `qualifying_exams.aux'.
+(./annual_plan.aux)
+\openout1 = `annual_plan.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 124.
 LaTeX Font Info:    ... okay on input line 124.
@@ -896,58 +896,50 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 LaTeX Info: Redefining \ref on input line 124.
 LaTeX Info: Redefining \pageref on input line 124.
 LaTeX Info: Redefining \nameref on input line 124.
- (./qualifying_exams.out) (./qualifying_exams.out)
+ (./annual_plan.out) (./annual_plan.out)
 \@outlinefile=\write7
-\openout7 = `qualifying_exams.out'.
+\openout7 = `annual_plan.out'.
 
-LaTeX Font Info:    Trying to load font information for U+rsfs on input line 15
-5.
+LaTeX Font Info:    Trying to load font information for U+rsfs on input line 13
+2.
 
 (/usr/local/texlive/2021/texmf-dist/tex/latex/jknapltx/ursfs.fd
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 )
-LaTeX Font Info:    Trying to load font information for U+msa on input line 155
+LaTeX Font Info:    Trying to load font information for U+msa on input line 132
 .
 
 (/usr/local/texlive/2021/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 155
+LaTeX Font Info:    Trying to load font information for U+msb on input line 132
 .
 
 (/usr/local/texlive/2021/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) [1{/usr/local/texlive/2021/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
+) [1
 
-] [2] [3] [4]
-(./qualifying_exams.aux)
-Package rerunfilecheck Info: File `qualifying_exams.out' has not changed.
-(rerunfilecheck)             Checksum: A2B877471F89BC5D69D923364049A97A;421.
+{/usr/local/texlive/2021/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] (./annu
+al_plan.aux)
+Package rerunfilecheck Info: File `annual_plan.out' has not changed.
+(rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 25449 strings out of 478994
- 488338 string characters out of 5858183
- 794997 words of memory out of 5000000
- 42489 multiletter control sequences out of 15000+600000
- 407549 words of font info for 44 fonts, out of 8000000 for 9000
+ 25410 strings out of 478994
+ 487865 string characters out of 5858183
+ 785977 words of memory out of 5000000
+ 42478 multiletter control sequences out of 15000+600000
+ 407203 words of font info for 43 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 127i,11n,130p,482b,334s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 127i,11n,130p,477b,333s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
-</usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><
-/usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></
-usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></us
-r/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/
-local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/loc
-al/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl10.pfb></usr/loca
-l/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local
-/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/t
-exlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/te
-xlive/2021/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on qualifying_exams.pdf (4 pages, 128370 bytes).
+</usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></
+usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
+Output written on annual_plan.pdf (1 page, 38931 bytes).
 PDF statistics:
- 119 PDF objects out of 1000 (max. 8388607)
- 100 compressed objects within 1 object stream
- 30 named destinations out of 1000 (max. 500000)
- 45 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 33 PDF objects out of 1000 (max. 8388607)
+ 25 compressed objects within 1 object stream
+ 3 named destinations out of 1000 (max. 500000)
+ 13 words of extra memory for PDF output out of 10000 (max. 10000000)
 
