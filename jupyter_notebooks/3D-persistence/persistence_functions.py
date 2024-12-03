@@ -133,17 +133,22 @@ def compute_critical_points(graph):
 
     return new_components, merges
 
+def format_graph(graph):
+    vertices, edges = graph
+    formatted_vertices = [ {'coords': vertex[0], 'h': vertex[1], 'n': vertex[2], 'original_index': index + 1} for index, vertex in enumerate(vertices) ] 
+    formatted_edges = [ {'vertices': edge[0], 'h': edge[1], 'n': edge[2]} for edge in edges]
+    return [formatted_vertices, formatted_edges]
 
 
-def process_graph(graph, direction):
+def process_graph(vertices, edges, direction):
     """
-        The input is a graph containing points and edges and a direction.
+        The input are vertices and edges and a direction.
         
         The output is a graph ordered by height, and by x,y,z. The normal vectors are replaced with the sign.
     """
-    signed_graph = obtain_sign(graph, direction)
-    processed_graph = order_graph(graph, direction)
-    return processed_graph
+    processed_graph = order_graph(vertices, edges)
+    signed_graph = obtain_sign(processed_graph, direction)
+    return signed_graph
 
 
 
@@ -168,11 +173,45 @@ def sign(v_1,v_2):
         sign = -1
     return sign
 
-def order_graph(graph, direction):
+def order_graph(vertices, edges):
     """
-        The input is a graph containing points and edges and a direction.
+        The input are vertices and edges.
+        {'coords': [i, j, k], 'h': h, 'n': n, 'original_index': idx}
+        {'vertices': [e, l], 'h': h, 'n': n}
         
         The output is a graph ordered by height, and by x,y,z.
     """
-    ordered_graph = graph
-    return ordered_graph
+
+    # Step 1: Sort the vertices
+    sorted_vertices = sorted(
+        vertices,
+        key=lambda v: (v['h'], v['coords'][0], v['coords'][1], v['coords'][2])
+    )
+
+    # Step 2: Relabel the vertices
+    original_to_new_index = {}
+    for new_index, vertex in enumerate(sorted_vertices):
+        new_index += 1
+        original_index = vertex['original_index']
+        original_to_new_index[original_index] = new_index
+        vertex['new_index'] = new_index
+        
+    print(original_to_new_index)
+
+    # Step 3: Update the edges
+    for edge in edges:
+        # Map old indices to new indices and sort them within the edge
+        print(edge)
+        new_indices = [original_to_new_index[vi] for vi in edge['vertices']]
+        new_indices.sort()
+        edge['vertices'] = new_indices
+
+    # Step 4: Sort the edges
+    sorted_edges = sorted(
+        edges,
+        key=lambda e: (e['h'], min(e['vertices']))
+    )
+    
+    output_vertices = [ [v['new_index'], v['h'], v['n'] ] for v in sorted_vertices ]
+    output_edges = [ [e['vertices'], e['h'], e['n'] ] for e in sorted_edges ]
+    return [output_vertices, output_edges]
