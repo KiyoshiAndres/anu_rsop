@@ -215,3 +215,11 @@ def order_graph(vertices, edges):
     output_vertices = [ [v['new_index'], v['h'], v['n'] ] for v in sorted_vertices ]
     output_edges = [ [e['vertices'], e['h'], e['n'] ] for e in sorted_edges ]
     return [output_vertices, output_edges]
+
+def height_of_vertex(direction, point):
+    height = 0
+    for n in list(range(3)):
+        height_squared = direction[n] * point[n]
+    return math.sqrt(height_squared)   
+
+
