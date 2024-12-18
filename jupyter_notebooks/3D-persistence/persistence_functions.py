@@ -195,13 +195,11 @@ def order_graph(vertices, edges):
         original_index = vertex['original_index']
         original_to_new_index[original_index] = new_index
         vertex['new_index'] = new_index
-        
-    print(original_to_new_index)
 
+    
     # Step 3: Update the edges
     for edge in edges:
         # Map old indices to new indices and sort them within the edge
-        print(edge)
         new_indices = [original_to_new_index[vi] for vi in edge['vertices']]
         new_indices.sort()
         edge['vertices'] = new_indices
@@ -220,6 +218,7 @@ def height_of_vertex(direction, point):
     height = 0
     for n in list(range(3)):
         height_squared = direction[n] * point[n]
-    return math.sqrt(height_squared)   
+        height += height_squared
+    return height
 
 
