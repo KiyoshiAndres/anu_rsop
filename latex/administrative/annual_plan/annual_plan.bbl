@@ -1,0 +1,37 @@
+\begin{thebibliography}{}
+
+\bibitem[Belchi et~al., 2018]{belchi_lung_2018}
+Belchi, F., Pirashvili, M., Conway, J., Bennett, M., Djukanovic, R., and
+  Brodzki, J. (2018).
+\newblock Lung {Topology} {Characteristics} in patients with {Chronic}
+  {Obstructive} {Pulmonary} {Disease}.
+\newblock {\em Scientific Reports}, 8(1):5341.
+
+\bibitem[Bleile et~al., 2022]{Bleile_2022}
+Bleile, B., Garin, A., Heiss, T., Maggs, K., and Robins, V. (2022).
+\newblock {\em The Persistent Homology of Dual Digital Image Constructions},
+  page 1–26.
+\newblock Springer International Publishing.
+
+\bibitem[Robins et~al., 2016]{https://doi.org/10.1002/2015WR017937}
+Robins, V., Saadatfar, M., Delgado-Friedrichs, O., and Sheppard, A.~P. (2016).
+\newblock Percolating length scales from topological persistence analysis of
+  micro-ct images of porous materials.
+\newblock {\em Water Resources Research}, 52(1):315--329.
+
+\bibitem[Turner et~al., 2014]{turner2014persistenthomologytransformmodeling}
+Turner, K., Mukherjee, S., and Boyer, D.~M. (2014).
+\newblock Persistent homology transform for modeling shapes and surfaces.
+
+\bibitem[Turner et~al., 2024]{turner_extended_2024}
+Turner, K., Robins, V., and Morgan, J. (2024).
+\newblock The extended persistent homology transform of manifolds with
+  boundary.
+\newblock {\em Journal of Applied and Computational Topology}, 8(7):2111--2154.
+
+\bibitem[Wenger, 2013]{wenger_isosurfaces_2013}
+Wenger, R. (2013).
+\newblock {\em Isosurfaces : {Geometry}, {Topology}, and {Algorithms}}.
+\newblock CRC Press LLC, Milton, UNITED KINGDOM.
+
+\end{thebibliography}
