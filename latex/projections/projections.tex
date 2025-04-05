@@ -1,0 +1,242 @@
+\documentclass[12pt]{article}
+
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{color,soul}
+\usepackage{mathrsfs}
+\usepackage{tikz-cd}
+\usepackage{tcolorbox}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\usepackage{graphicx}
+
+
+\usepackage{titlesec}
+\titleformat{\section}[block]{\color{black}\Large\bfseries\filcenter}{}{1em}{}
+
+
+
+\setlength{\headheight}{40pt}
+\usepackage{graphicx}
+
+\usepackage{imakeidx}
+\makeindex[columns=2, title=Index, intoc]
+
+
+\usepackage{hyperref}
+\usepackage{cleveref}
+
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=magenta,      
+	urlcolor=cyan,
+	pdftitle={Sharelatex Example},
+	pdfpagemode=FullScreen,
+}
+
+\urlstyle{same}
+
+
+\newcommand{\FHom}{\mathcal{H} o m}
+\newcommand{\sheafification}{\mathcal{F}^+}
+\newcommand{\Id}{\textrm{Id}}
+\newcommand{\Hom}{\textrm{Hom}}
+\newcommand{\Spec}{\textrm{Spec }}
+\newcommand{\Sch}{\textrm{Sch}}
+\newcommand{\Set}{\textrm{Set}}
+\newcommand{\Grass}{\textrm{Grass}}
+\newcommand{\Mod}{\textrm{Mod}}
+\newcommand{\id}{\textrm{id}}
+\newcommand{\Ob}{\textrm{Ob}}
+\newcommand{\Ext}{\textrm{Ext}}
+\newcommand{\Tor}{\textrm{Tor}}
+\newcommand{\Invlim}{\lim\limits_{\longleftarrow}}
+\newcommand{\Dirlim}{\lim\limits_{\longrightarrow}}
+\newcommand{\Gal}{\textrm{Gal}}
+\newcommand{\F}{\mathscr{F}}
+\newcommand{\res}{\text{res}}
+\newcommand{\primep}{\mathfrak{p}}
+\newcommand{\bigo}{\mathcal{O}}
+\newcommand\smallo{
+	\mathchoice
+	{{\scriptstyle\mathcal{O}}}% \displaystyle
+	{{\scriptstyle\mathcal{O}}}% \textstyle
+	{{\scriptscriptstyle\mathcal{O}}}% \scriptstyle
+	{\scalebox{.7}{$\scriptscriptstyle\mathcal{O}$}}%\scriptscriptstyle
+}
+\newcommand{\Aut}{\textrm{Aut}}
+\newcommand{\projs}{\mathbf{Proj}(S)}
+\newcommand{\Proj}{\mathbf{Proj}}
+\newcommand{\Ass}{\textrm{Ass}}
+\newcommand{\Div}{\textrm{Div}}
+\newcommand{\pdiv}{\textrm{div}}
+\newcommand{\Cov}{\textrm{Cov}}
+\newcommand{\Op}{\textrm{Op}}
+
+
+\newtheoremstyle{theorem}{}{}{}{}{\color{blue}\bfseries}{.}{ }{}
+\theoremstyle{theorem}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition} [section]
+\newtheorem{example}{Example}
+\newtheorem{xca}[theorem]{Exercise}
+
+
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+\newtheoremstyle{gremark}{}{}{}{}{\color{red}\bfseries}{.}{ }{}
+\theoremstyle{gremark}
+\newtheorem{gremark}{Future Expansion Necessary}
+
+\newtheoremstyle{discussion}{}{}{}{}{\color{orange}\bfseries}{.}{ }{}
+\theoremstyle{discussion}
+\newtheorem{discussion}{Discussion}
+
+\newtheoremstyle{notation}{}{}{}{}{\color{orange}\bfseries}{.}{ }{}
+\theoremstyle{notation}
+\newtheorem{notation}{Notation}
+
+\bibliographystyle{apalike}
+
+\newtcolorbox{mybox}[3][]
+{
+	colframe = #2!25,
+	colback  = #2!10,
+	coltitle = #2!20!black,  
+	#1,
+}
+
+
+
+
+\title{Projections of PL 3-Manifold}
+\author{Kiyoshi Andres Takeuchi Romo}
+
+\begin{document}
+	
+	\maketitle
+	
+	\section*{PL-Manifolds}
+	
+	\begin{proposition}
+		Let $X$ be a PL 3-Manifold. There exists a PL-Manifold that is the topological convex hull of $X$.
+	\end{proposition}
+
+	\begin{proposition}
+		Let $X$ be the convex hull of a PL 3-Manifold. The critical points determine its structure uniquely.
+	\end{proposition}
+
+
+	\section*{Projections}
+	
+	Let $X$ be a PL 3-Manifold. Let $v\in S^2$. We denote the projection of $X$ in the direction of $v$ by $X_v$. 
+	
+	\begin{proposition}
+		Let $x\in X_v$. Then, for any allowable direction $u\in S^2$, $h_u(x)=h_u(y)$ for any $y\in p_v^{-1}(x)$.
+	\end{proposition}
+
+	\begin{proof}
+		Let $y=(y\cdot v)v+(y-(y\cdot v)v)$. Then, letting $x=(y-(y\cdot v)v)$ be the projection, we write $y=(y\cdot v)v+x$.
+		Now, the allowable directions for the height function of $X_v$ are $u\in S^2$ for which $u\cdot v=0$, so that $y\cdot u=(y\cdot v)v\cdot u + x\cdot u=x\cdot u$. Therefore we have our conclusion.
+	\end{proof}
+
+	\subsection{Convex}
+	
+	\begin{proposition}
+		Let $X$ be convex. Then, for any $u\in S^2$ such that $u\cdot v=0$, we have that the diagrams $D_0(X,u)=D_0(X_v,u)$.
+	\end{proposition}
+
+	\begin{proof}
+		There is a unique off-diagonal point in each diagram with birth at the minimum.
+	\end{proof}
+
+	\begin{corollary}
+		We can recover $D_0(X,u)$ for any $u\in S^2$.
+	\end{corollary}
+
+	\begin{proof}
+		Start with any $u\in S^2$, then use any $v\in S^2$ orthogonal to 
+	\end{proof}
+
+	\begin{corollary}
+		Let $X$ be convex. Then the structure of $X$ can be recovered from the projections.
+	\end{corollary}
+
+	\begin{proof}
+		Since we have $D_0(X,u)$ for all $u\in S^2$ by the previous corollary, and we know that $D_1(X,u)$ and $D_2(X,u)$ are trivial by convexity, we are in the setting of .
+	\end{proof}
+
+	Now, more generally we will not have that equality $D(X,u)=D(X_v,u)$. But in the case of simply connectedness, we have 
+	
+	\begin{proposition}
+		Let $X$ be convex. Then, it suffices to study a single great circle of directions to recover the structure of $X$.
+	\end{proposition}
+
+	\begin{proof}
+		Fix some $w\in S^2$. We identify the set $u\in S^2$ such that $u\cdot w=0$ with $S^1$. Pick any $m\in S^2$. Then there will be some $u\in S^1$ for which $m\cdot u=0$ (explicitely take $\pm m\times w$). Pick one of them, and $D_0(X_u,m)=D_0(X,m)$.
+	\end{proof}
+
+	\subsection{Simply Connected}
+
+	\begin{proposition}
+		Let $X$ be simply connected. Let $v\in S^2$. Then, we have the following table:
+		
+		$Ord_0(X_v, w)\subseteq Ord_0(X,w)$.
+	\end{proposition}
+
+	\begin{proof}
+		
+	\end{proof}
+	
+	\subsection*{Visibility of Vertices}
+	
+	\begin{definition}
+		Let $X$ be a PL 3-Manifold. Let $x\in X$ be a critical point. $x$ is said to be \textbf{visible} if $x$ is a critical point for some projection $p_v$ and $h_u$ such that $u\cdot v=0$.
+	\end{definition}
+
+	\begin{definition}
+		A point $x\in X$ is said to be \textbf{twice visible} if it is visible from two distinct directions $v_1,v_2\in S^2$.
+	\end{definition}
+	
+	\begin{proposition}
+		Let $X$ be a convex PL 3-Manifold. Every critical point is twice visible.
+	\end{proposition}
+
+	\begin{proposition}
+		Let $X$ be a convex PL 3-Manifold. If a critical point is twice visible, it can be uniquely identified.
+	\end{proposition}
+
+	\subsection*{Visibility of Links}
+
+	\begin{definition}
+		visibility of link
+	\end{definition}
+
+	\begin{proposition}
+		Let $X$ be a PL 3-Manifold. If every critical point is twice visible, then one can uniquely determine its structure.
+	\end{proposition}
+
+	\begin{corollary}
+		One can recover the convex hull of a PL 3-Manifold from its projections.
+	\end{corollary}
+
+	
+	
+	
+	
+	
+	
+	
+	
+\end{document}

@@ -1,0 +1,273 @@
+\documentclass[12pt]{article}
+
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{color,soul}
+\usepackage{mathrsfs}
+\usepackage{tikz-cd}
+\usepackage{tcolorbox}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\usepackage{graphicx}
+
+
+\usepackage{titlesec}
+\titleformat{\section}[block]{\color{black}\Large\bfseries\filcenter}{}{1em}{}
+
+
+
+\setlength{\headheight}{40pt}
+\usepackage{graphicx}
+
+\usepackage{imakeidx}
+\makeindex[columns=2, title=Index, intoc]
+
+
+\usepackage{hyperref}
+\usepackage{cleveref}
+
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=magenta,      
+	urlcolor=cyan,
+	pdftitle={Sharelatex Example},
+	pdfpagemode=FullScreen,
+}
+
+\urlstyle{same}
+
+
+\newcommand{\FHom}{\mathcal{H} o m}
+\newcommand{\sheafification}{\mathcal{F}^+}
+\newcommand{\Id}{\textrm{Id}}
+\newcommand{\Hom}{\textrm{Hom}}
+\newcommand{\Spec}{\textrm{Spec }}
+\newcommand{\Sch}{\textrm{Sch}}
+\newcommand{\Set}{\textrm{Set}}
+\newcommand{\Grass}{\textrm{Grass}}
+\newcommand{\Mod}{\textrm{Mod}}
+\newcommand{\id}{\textrm{id}}
+\newcommand{\Ob}{\textrm{Ob}}
+\newcommand{\Ext}{\textrm{Ext}}
+\newcommand{\Tor}{\textrm{Tor}}
+\newcommand{\Invlim}{\lim\limits_{\longleftarrow}}
+\newcommand{\Dirlim}{\lim\limits_{\longrightarrow}}
+\newcommand{\Gal}{\textrm{Gal}}
+\newcommand{\F}{\mathscr{F}}
+\newcommand{\res}{\text{res}}
+\newcommand{\primep}{\mathfrak{p}}
+\newcommand{\bigo}{\mathcal{O}}
+\newcommand\smallo{
+	\mathchoice
+	{{\scriptstyle\mathcal{O}}}% \displaystyle
+	{{\scriptstyle\mathcal{O}}}% \textstyle
+	{{\scriptscriptstyle\mathcal{O}}}% \scriptstyle
+	{\scalebox{.7}{$\scriptscriptstyle\mathcal{O}$}}%\scriptscriptstyle
+}
+\newcommand{\Aut}{\textrm{Aut}}
+\newcommand{\projs}{\mathbf{Proj}(S)}
+\newcommand{\Proj}{\mathbf{Proj}}
+\newcommand{\Ass}{\textrm{Ass}}
+\newcommand{\Div}{\textrm{Div}}
+\newcommand{\pdiv}{\textrm{div}}
+\newcommand{\Cov}{\textrm{Cov}}
+\newcommand{\Op}{\textrm{Op}}
+
+
+\newtheoremstyle{theorem}{}{}{}{}{\color{blue}\bfseries}{.}{ }{}
+\theoremstyle{theorem}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition} [section]
+\newtheorem{example}{Example}
+\newtheorem{xca}[theorem]{Exercise}
+
+
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+\newtheoremstyle{gremark}{}{}{}{}{\color{red}\bfseries}{.}{ }{}
+\theoremstyle{gremark}
+\newtheorem{gremark}{Future Expansion Necessary}
+
+\newtheoremstyle{discussion}{}{}{}{}{\color{orange}\bfseries}{.}{ }{}
+\theoremstyle{discussion}
+\newtheorem{discussion}{Discussion}
+
+\newtheoremstyle{notation}{}{}{}{}{\color{orange}\bfseries}{.}{ }{}
+\theoremstyle{notation}
+\newtheorem{notation}{Notation}
+
+\bibliographystyle{apalike}
+
+\newtcolorbox{mybox}[3][]
+{
+	colframe = #2!25,
+	colback  = #2!10,
+	coltitle = #2!20!black,  
+	#1,
+}
+
+
+
+
+\title{Workshop 4}
+\author{Kiyoshi Andres Takeuchi Romo}
+
+\begin{document}
+	
+	\maketitle
+	
+	
+	\begin{proposition}
+		Let $v_1,\ldots, v_n$ be pairwise orthogonal non-zero vectors. Then they are linearly independent.
+	\end{proposition}
+
+	\begin{proof}
+		Suppose $c_1v_1+\ldots+c_nv_n=0$. Then, for taking inner product with $v_i$, we get $c_iv_i\cdot v_i=0$ since the other components vanish by orthogonality. And since $v_i$ is non-zero, $c_i=0$. 
+	\end{proof}
+
+	
+	
+	\pagebreak
+	
+	
+
+	\begin{definition}
+		A set of matrices forms a \textbf{reducible set} if there exists a nonzero proper subspace of the underlying vector space that is invariant under all of those matrices. 
+	\end{definition}
+		
+	\begin{proposition}
+		Do the following set of matrices form a reducible or irreducible set? Explain your answer.
+	\end{proposition}
+
+	\begin{proof}
+		Yes, $\alpha(1,1,1,1)$ is an invariant subspace.
+	\end{proof}
+		
+		
+		
+		\pagebreak
+		
+		
+	\begin{proposition}
+		A matrix that commutes with every matrix of an irreducible representation must be a multiple of the identity matrix. That is, if $D$ is irreducible and if $AD(g) = D(g)A$ for all $g\in G$, then $A = \alpha I$.
+	\end{proposition}
+
+	\begin{lemma}
+		Let $\rho:G\to GL(n,\mathbb{C})$ be a scalar representation. That is, for any $g$, there exists some $\alpha_g\in \mathbb{C}$ such that $\rho(g)=\alpha_g I$. Then if $\rho$ is irreducible, $n=1$.
+	\end{lemma}
+
+	\begin{proof}
+		Suppose $n\geq 1$. Then let $W$ be any $1$-dimensional subspace of $\mathbb{C}^n$. Then by definition, for $w\in W$, $\rho(g)w=\alpha_g Iw=\alpha w\in W$ since $W$ is a subspace. So we have a contradiction. $n=1$.
+	\end{proof}
+
+	
+	\begin{proposition}
+		Use Schur’s lemma to show that an irreducible matrix representation, in $GL(n, \mathbb{C})$, of an abelian	group must be one-dimensional.
+	\end{proposition}
+
+	\begin{proof}
+		Let $\rho:G\to GL(n, \mathbb{C})$ be a an irreducible representation of $G$. Fix $h\in G$ and let $g\in G$ be arbitrary. Then, since $\rho$ is a group homomorphism, and $G$ is abelian, $\rho(g)\rho(h)=\rho(h)\rho(g)$. Therefore $\rho(h)=\alpha I$ is a scalar multiple of the identity by Schur's Lemma. Since $h$ was arbitrary (albeit fixed), $\rho(h)$ is a scalar multiple of the identity matrix for all $h\in G$.
+		By the Lemma $n=1$.
+	\end{proof}
+
+		\begin{proposition}[Schur's Lemma]
+			Let $V$ and $W$ be vector spaces. Let $\rho_V$ and $\rho_W$ be irreducible representations of $G$ on $V$ and $W$ respectively.
+			
+			\begin{enumerate}
+				\item If $V$ and $W$ are not isomorphic, then there are no non-trivial $G$-linear maps between them.
+				\item If $V=W$ finite-dimensional over an algebraically closed field, and if $\rho_V=\rho_W$, then the only nontrivial G-linear maps are the identity, and scalar multiples of the identity.
+			\end{enumerate}
+		\end{proposition}
+
+	\begin{proof}
+		
+	\end{proof}
+
+
+	\pagebreak
+	
+	
+	\begin{definition}
+		\textbf{infinitessimal operator}
+	\end{definition}
+	
+	\begin{proposition}
+		Suppose $T(a)$ is the translation operator that acts on a function $f(x)$ to make it $f(x + a)$. That is:
+		 $T (a)f (x) = f (x + a).$
+		Show that the infinitessimal operator corresponding to the Lie group of translation operators is given by
+		
+		$$\partial $$
+	\end{proposition}
+
+	\begin{proof}
+		\[
+		\left[e^{ia p_x} f\right](x)
+		\;=\; \sum_{n=0}^\infty \frac{(ia\,p_x)^n}{n!}\,f(x)
+		\;=\; \sum_{n=0}^\infty \frac{(ia)^n}{n!}\,\left(-i\frac{d}{dx}\right)^n f(x)
+		\;=\; f(x+a).
+		\]
+	\end{proof}
+	
+	
+	\begin{lemma}
+		
+	\end{lemma}
+
+	\begin{proof}
+		\noindent
+		\textbf{Step 1. Define \(\,g(t)\,\) by \(g(t) = f(x + t)\).}
+		
+		\[
+		g(0) \;=\; f(x), 
+		\quad\text{and for the \(n\)-th derivative we get}
+		\]
+		\[
+		g^{(n)}(0) 
+		\;=\; \left.\frac{d^n}{dt^n} \bigl[f(x + t)\bigr]\right|_{t=0}
+		\;=\; f^{(n)}(x).
+		\]
+		
+		\noindent
+		\textbf{Step 2. Maclaurin series for \(\,g(t)\).}
+		
+		\[
+		\text{Because \(g\) is sufficiently smooth, its Taylor expansion about 0 is}
+		\]
+		\[
+		g(t)
+		\;=\; \sum_{n=0}^{\infty} \frac{g^{(n)}(0)}{n!} \, t^n
+		\;=\; \sum_{n=0}^{\infty} \frac{f^{(n)}(x)}{n!} \, t^n.
+		\]
+		
+		\noindent
+		\textbf{Step 3. Substitute \(\,t = a\).}
+		
+		\[
+		\text{Since } g(t) = f(x + t), \text{ setting } t = a \text{ yields}
+		\]
+		\[
+		f(x + a) 
+		\;=\; g(a) 
+		\;=\; \sum_{n=0}^{\infty} \frac{f^{(n)}(x)}{n!} \, a^n,
+		\]
+		\[
+		\text{which is the usual Taylor expansion of } f(x+a) \text{ about } x.
+		\]
+	\end{proof}
+	
+	
+	
+	
+	
+\end{document}

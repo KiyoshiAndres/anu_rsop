@@ -1,0 +1,259 @@
+\documentclass[12pt]{article}
+
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{color,soul}
+\usepackage{mathrsfs}
+\usepackage{tikz-cd}
+\usepackage{tcolorbox}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\usepackage{graphicx}
+
+
+\usepackage{titlesec}
+\titleformat{\section}[block]{\color{black}\Large\bfseries\filcenter}{}{1em}{}
+
+
+
+\setlength{\headheight}{40pt}
+\usepackage{graphicx}
+
+\usepackage{imakeidx}
+\makeindex[columns=2, title=Index, intoc]
+
+
+\usepackage{hyperref}
+\usepackage{cleveref}
+
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=magenta,      
+	urlcolor=cyan,
+	pdftitle={Sharelatex Example},
+	pdfpagemode=FullScreen,
+}
+
+\urlstyle{same}
+
+
+\newcommand{\FHom}{\mathcal{H} o m}
+\newcommand{\sheafification}{\mathcal{F}^+}
+\newcommand{\Id}{\textrm{Id}}
+\newcommand{\Hom}{\textrm{Hom}}
+\newcommand{\Spec}{\textrm{Spec }}
+\newcommand{\Sch}{\textrm{Sch}}
+\newcommand{\Set}{\textrm{Set}}
+\newcommand{\Grass}{\textrm{Grass}}
+\newcommand{\Mod}{\textrm{Mod}}
+\newcommand{\id}{\textrm{id}}
+\newcommand{\Ob}{\textrm{Ob}}
+\newcommand{\Ext}{\textrm{Ext}}
+\newcommand{\Tor}{\textrm{Tor}}
+\newcommand{\Invlim}{\lim\limits_{\longleftarrow}}
+\newcommand{\Dirlim}{\lim\limits_{\longrightarrow}}
+\newcommand{\Gal}{\textrm{Gal}}
+\newcommand{\F}{\mathscr{F}}
+\newcommand{\res}{\text{res}}
+\newcommand{\primep}{\mathfrak{p}}
+\newcommand{\bigo}{\mathcal{O}}
+\newcommand\smallo{
+	\mathchoice
+	{{\scriptstyle\mathcal{O}}}% \displaystyle
+	{{\scriptstyle\mathcal{O}}}% \textstyle
+	{{\scriptscriptstyle\mathcal{O}}}% \scriptstyle
+	{\scalebox{.7}{$\scriptscriptstyle\mathcal{O}$}}%\scriptscriptstyle
+}
+\newcommand{\Aut}{\textrm{Aut}}
+\newcommand{\projs}{\mathbf{Proj}(S)}
+\newcommand{\Proj}{\mathbf{Proj}}
+\newcommand{\Ass}{\textrm{Ass}}
+\newcommand{\Div}{\textrm{Div}}
+\newcommand{\pdiv}{\textrm{div}}
+\newcommand{\Cov}{\textrm{Cov}}
+\newcommand{\Op}{\textrm{Op}}
+
+
+\newtheoremstyle{theorem}{}{}{}{}{\color{blue}\bfseries}{.}{ }{}
+\theoremstyle{theorem}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition} [section]
+\newtheorem{example}{Example}
+\newtheorem{xca}[theorem]{Exercise}
+
+
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+\newtheoremstyle{gremark}{}{}{}{}{\color{red}\bfseries}{.}{ }{}
+\theoremstyle{gremark}
+\newtheorem{gremark}{Future Expansion Necessary}
+
+\newtheoremstyle{discussion}{}{}{}{}{\color{orange}\bfseries}{.}{ }{}
+\theoremstyle{discussion}
+\newtheorem{discussion}{Discussion}
+
+\newtheoremstyle{notation}{}{}{}{}{\color{orange}\bfseries}{.}{ }{}
+\theoremstyle{notation}
+\newtheorem{notation}{Notation}
+
+\bibliographystyle{apalike}
+
+\newtcolorbox{mybox}[3][]
+{
+	colframe = #2!25,
+	colback  = #2!10,
+	coltitle = #2!20!black,  
+	#1,
+}
+
+
+
+
+\title{Derived PHT}
+\author{Kiyoshi Andres Takeuchi Romo}
+
+\begin{document}
+	
+	\maketitle
+	
+	
+	In our analysis of projections of a $3$-Manifold $X$, we would like to reconstruct our Manifold from its projections onto a direction $v\in S^2$. Each projection map is close to giving a Fiber Bundle, but the size of the fibers vary at each point. So we explore two alternatives: Sheaves and Fibrations.
+	
+	\begin{definition}
+		A \textbf{Fiber Bundle} is a 
+	\end{definition}
+
+	\begin{definition}
+		A \textbf{Fibration} is a 
+	\end{definition}
+
+	\begin{definition}
+		A \textbf{Sheaf} is a 
+	\end{definition}
+	
+	\section*{Abstract Sheaf Theory}
+	
+	A presheaf is an organizational tool that allows you to specify information of some structure locally or on open sets.
+	
+	A sheaf is a presheaf that has the property that the information you have locally can glue into global information.
+	
+	I will thus begin by giving an example of a presheaf that isn't a sheaf, and a presheaf that is a sheaf.
+	
+	\begin{example}
+		
+	\end{example}
+
+	\begin{example}
+		
+	\end{example}
+
+	Now, it is somewhat clear from the definition of sheaf that it only depends on the notion of open covers. 
+	
+	\begin{definition}
+		\textbf{Grothendieck Topology}
+		\textbf{Site}
+	\end{definition}
+
+	As the name suggests, a Grothendieck Topology is a way to give some topological aspect to a Category. But in fact, it's not the full axioms of a topology that are passed on, rather only the information of "open covers". This is because open covers are enough to define sheaves.
+	
+		\begin{example}
+		The most important example is that given by the open sets of a toplogical space $X$. The objects of the category will be denoted by $Op(X)$ and will consist of open subsets of $X$. Morphisms are inclusions.
+		\end{example}
+	
+	\begin{definition}
+		A \textbf{presheaf} is a contravariant functor $\mathcal{F}:\mathcal{C}\to \mathcal{D}$, where $\mathcal{C}$ is a Site $\mathcal{D}$ is usually taken to be the category of sets, groups, rings, etc.
+	\end{definition}
+
+	The main reason behind calling contravariant functors presheaves, is because it suggests that we want to treat that contravariant functor as a sheaf. 
+
+	\begin{definition}
+		
+	\end{definition}
+
+	\begin{proposition}
+		\textbf{Sheafification}
+	\end{proposition}
+
+	\begin{example}
+		\textbf{constant sheaf}
+	\end{example}
+
+	\begin{example}
+		
+	\end{example}
+
+	Sheaves are 
+	
+	
+	\section{Lifting Properties}
+	
+	\begin{definition}
+		
+	\end{definition}
+
+	\begin{definition}
+		
+	\end{definition}
+
+	\begin{example}
+		
+	\end{example}
+
+	\begin{example}
+		
+	\end{example}
+
+	\section{Fibrations}
+	
+	
+
+	\section{Derived and Homotopy Categories}
+
+	\begin{definition}
+		
+	\end{definition}
+	
+	
+	\section{Applications}
+	
+	\section{Loop Spaces}
+	
+	
+	
+	
+	\begin{example}
+		Let $X$ be a PL $3$-Manifold, and let $v\in S^2$. We denote the projection of $X$ in the direction of $v$ as $X_v$.  Define a presheaf $\mathcal{F}:X\to \mathbb{R}^2$ by $\mathcal{F}(U)=PHT(U)$.
+	\end{example}
+	
+	
+	
+	
+	\section*{Magnitude Homology}
+	
+	\begin{definition}
+		
+	\end{definition}
+	
+	\begin{proposition}
+		
+	\end{proposition}
+	
+	
+	
+	
+	
+	
+	
+	
+\end{document}

@@ -1,0 +1,155 @@
+\documentclass[12pt]{article}
+
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{color,soul}
+\usepackage{mathrsfs}
+\usepackage{tikz-cd}
+\usepackage{tcolorbox}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\usepackage{graphicx}
+
+
+\usepackage{titlesec}
+\titleformat{\section}[block]{\color{black}\Large\bfseries\filcenter}{}{1em}{}
+
+
+
+\setlength{\headheight}{40pt}
+\usepackage{graphicx}
+
+\usepackage{imakeidx}
+\makeindex[columns=2, title=Index, intoc]
+
+
+\usepackage{hyperref}
+\usepackage{cleveref}
+
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=magenta,      
+	urlcolor=cyan,
+	pdftitle={Sharelatex Example},
+	pdfpagemode=FullScreen,
+}
+
+\urlstyle{same}
+
+
+\newcommand{\FHom}{\mathcal{H} o m}
+\newcommand{\sheafification}{\mathcal{F}^+}
+\newcommand{\Id}{\textrm{Id}}
+\newcommand{\Hom}{\textrm{Hom}}
+\newcommand{\Spec}{\textrm{Spec }}
+\newcommand{\Sch}{\textrm{Sch}}
+\newcommand{\Set}{\textrm{Set}}
+\newcommand{\Grass}{\textrm{Grass}}
+\newcommand{\Mod}{\textrm{Mod}}
+\newcommand{\id}{\textrm{id}}
+\newcommand{\Ob}{\textrm{Ob}}
+\newcommand{\Ext}{\textrm{Ext}}
+\newcommand{\Tor}{\textrm{Tor}}
+\newcommand{\Invlim}{\lim\limits_{\longleftarrow}}
+\newcommand{\Dirlim}{\lim\limits_{\longrightarrow}}
+\newcommand{\Gal}{\textrm{Gal}}
+\newcommand{\F}{\mathscr{F}}
+\newcommand{\res}{\text{res}}
+\newcommand{\primep}{\mathfrak{p}}
+\newcommand{\bigo}{\mathcal{O}}
+\newcommand\smallo{
+	\mathchoice
+	{{\scriptstyle\mathcal{O}}}% \displaystyle
+	{{\scriptstyle\mathcal{O}}}% \textstyle
+	{{\scriptscriptstyle\mathcal{O}}}% \scriptstyle
+	{\scalebox{.7}{$\scriptscriptstyle\mathcal{O}$}}%\scriptscriptstyle
+}
+\newcommand{\Aut}{\textrm{Aut}}
+\newcommand{\projs}{\mathbf{Proj}(S)}
+\newcommand{\Proj}{\mathbf{Proj}}
+\newcommand{\Ass}{\textrm{Ass}}
+\newcommand{\Div}{\textrm{Div}}
+\newcommand{\pdiv}{\textrm{div}}
+\newcommand{\Cov}{\textrm{Cov}}
+\newcommand{\Op}{\textrm{Op}}
+
+
+\newtheoremstyle{theorem}{}{}{}{}{\color{blue}\bfseries}{.}{ }{}
+\theoremstyle{theorem}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition} [section]
+\newtheorem{example}{Example}
+\newtheorem{xca}[theorem]{Exercise}
+
+
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+\newtheoremstyle{gremark}{}{}{}{}{\color{red}\bfseries}{.}{ }{}
+\theoremstyle{gremark}
+\newtheorem{gremark}{Future Expansion Necessary}
+
+\newtheoremstyle{discussion}{}{}{}{}{\color{orange}\bfseries}{.}{ }{}
+\theoremstyle{discussion}
+\newtheorem{discussion}{Discussion}
+
+\newtheoremstyle{notation}{}{}{}{}{\color{orange}\bfseries}{.}{ }{}
+\theoremstyle{notation}
+\newtheorem{notation}{Notation}
+
+\bibliographystyle{apalike}
+
+\newtcolorbox{mybox}[3][]
+{
+	colframe = #2!25,
+	colback  = #2!10,
+	coltitle = #2!20!black,  
+	#1,
+}
+
+
+
+
+\title{Notes on Etale Cohomology}
+\author{Kiyoshi Andres Takeuchi Romo}
+
+\begin{document}
+	
+	\maketitle
+	
+	\section*{Lecture 1}
+	
+	\begin{definition}
+		A scheme is \textbf{separated} if 
+	\end{definition}
+
+	\begin{definition}
+		A scheme is \textbf{locally Noetherian} if
+	\end{definition}
+	
+	Assumptions: All schemes are separated and locally Noetherian. For the remainder of the notes, usually $f:X\to Y$ will denote a morphism of schemes, while $g:A\to B$ will denote a ring morphism.
+	
+	\begin{definition}
+		A \textbf{flat} module 
+	\end{definition}
+	
+	\begin{definition}
+		$g$ is \textbf{flat} if $B$ is a flat $A$-module.
+	\end{definition}
+	
+	
+	
+	
+	
+	
+\end{document}
