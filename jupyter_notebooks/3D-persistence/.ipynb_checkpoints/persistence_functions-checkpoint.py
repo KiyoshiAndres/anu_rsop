@@ -1,19 +1,4 @@
-def group_events_by_height(points, edges):
-    """
-    Input is a set of points, and a set of edges.
-    Returns a dict of the form:
-    
-    """
-    events_by_height = {}
-    for i, h, n in points:
-        events_by_height.setdefault(h, {'points': [], 'edges': []})
-        events_by_height[h]['points'].append((i, h, n))
 
-    for (i_j, h, n) in edges:
-        events_by_height.setdefault(h, {'points': [], 'edges': []})
-        events_by_height[h]['edges'].append((i_j, h, n))
-        
-    return events_by_height
 
 
 def compute_critical_points(graph):
@@ -133,10 +118,40 @@ def compute_critical_points(graph):
 
     return new_components, merges
 
+# 
+
+
+
+
+# Preprocessing
+
+def group_events_by_height(points, edges):
+    """
+    Input is a set of points, and a set of edges.
+    Returns a dict of the form:
+    
+    """
+    events_by_height = {}
+    for i, h, n in points:
+        events_by_height.setdefault(h, {'points': [], 'horizontal_edges': [], 'vertical_edges': []})
+        events_by_height[h]['points'].append((i, h, n))
+
+    for edge in edges:
+        h = max(edge['height'])
+        events_by_height.setdefault(h, {'points': [], 'horizontal_edges': [], 'vertical_edges': []})
+        if min(edge['height'])==max(edge['height']):
+            events_by_height[h]['horizontal_edges'].append(edge)
+            print('Edge {} is horizontal.'.format(edge))
+        else:
+            events_by_height[h]['vertical_edges'].append(edge)
+    return events_by_height
+
+
+
 def format_graph(graph):
     vertices, edges = graph
     formatted_vertices = [ {'coords': vertex[0], 'h': vertex[1], 'n': vertex[2], 'original_index': index + 1} for index, vertex in enumerate(vertices) ] 
-    formatted_edges = [ {'vertices': edge[0], 'h': edge[1], 'n': edge[2]} for edge in edges]
+    formatted_edges = [ {'vertices': edge[0], 'height': edge[1], 'n': edge[2]} for edge in edges]
     return [formatted_vertices, formatted_edges]
 
 
@@ -150,18 +165,32 @@ def process_graph(vertices, edges, direction):
     signed_graph = obtain_sign(processed_graph, direction)
     return signed_graph
 
-
+def subdivide_edges(edges: list) -> list:
+    '''Input: List of edges formated as 
+    edge = ['vertices': [index_i, index_j], 'height': [height_i, height_j], 'n': n]
+    Output: Partitions the edges for processing in two steps.
+    A list containing two lists of edges, the first entry is horizontal edges.
+    '''
+    horizontal_edges = []
+    angled_edges = []
+    for edge in edges:
+        if min(edge['height'])==max(edge['height']):
+            horizontal_edges.append(edge)
+            print('Edge {} is horizontal.'.format(edge))
+        else:
+            angled_edges.append(edge)
+    return [horizontal_edges, angled_edges]
 
 # obtain_sign, sign, and order_graph are helper functions for process_graph. 
 
-def obtain_sign(graph, direction):
+def obtain_sign(graph, direction: list) -> list:
     points, edges = graph
     signed_points = []
     signed_edges = []
     for point in points:
         signed_points.append([point[0],point[1],sign(point[2], direction)])
-    for edge in edges:
-        signed_edges.append([edge[0],edge[1],sign(edge[2], direction)])
+    for e in edges:
+        signed_edges.append({'vertices': e['vertices'], 'height': e['height'], 'sign': sign(e['n'], direction)})
     return [signed_points, signed_edges]
 
 def sign(v_1,v_2):
@@ -177,7 +206,7 @@ def order_graph(vertices, edges):
     """
         The input are vertices and edges.
         {'coords': [i, j, k], 'h': h, 'n': n, 'original_index': idx}
-        {'vertices': [e, l], 'h': h, 'n': n}
+        {'vertices': [e, l], 'height': [h_0,h_1], 'n': n}
         
         The output is a graph ordered by height, and by x,y,z.
     """
@@ -203,15 +232,14 @@ def order_graph(vertices, edges):
         new_indices = [original_to_new_index[vi] for vi in edge['vertices']]
         new_indices.sort()
         edge['vertices'] = new_indices
-
     # Step 4: Sort the edges
     sorted_edges = sorted(
         edges,
-        key=lambda e: (e['h'], min(e['vertices']))
+        key=lambda e: (max(e['height']), min(e['vertices']))
     )
     
     output_vertices = [ [v['new_index'], v['h'], v['n'] ] for v in sorted_vertices ]
-    output_edges = [ [e['vertices'], e['h'], e['n'] ] for e in sorted_edges ]
+    output_edges = [ {'vertices': e['vertices'], 'height': e['height'], 'n': e['n'] } for e in sorted_edges ]
     return [output_vertices, output_edges]
 
 def height_of_vertex(direction, point):
