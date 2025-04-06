@@ -1,4 +1,281 @@
+def compute_components(vertices: list, filtration: list):
+    # Union-Find (Disjoint Set) Implementation with Detailed Debugging
+    uf = UnionFind(len(vertices))
+    connected_components = []
+    merger = []
+    
+    for height, section in filtration.items():
+        section_vertices = section['points']
+        horizontal_edges = section['horizontal_edges']
+        horizontal_components = compute_horizontal_step(section_vertices, horizontal_edges)
+        
+    
+def compute_horizontal_step(vertices: list, horizontal_edges: list) -> list:
+    '''Input: List of vertices of height n, and list of horizontal edges of height n.
+    Output: TODO
+    '''
+    components = []
+    return components   
+    
 
+def compute_vertical_step(previous_components: list, current_components: list, angled_edges: list) -> list:
+    '''Input: List of vertices of height n, and list of horizontal edges of height n.
+    Output: TODO
+    Prints: 
+        New Connected Components (Subset of current__components):
+        Merged Components (Subset of previous_components):
+    '''
+    for edge in angled_edges:
+        # UnionFind merge current connected component with previous_connected_component
+        # If current connected component was already merged with that edge do nothing
+        # If current connected component wasn't already merged with that edge, add root to a set
+        edge
+        
+    
+    new_connected_components = []
+    merged_components = []
+    components = []
+    print("New Connected Components: {}".format(new_connected_components))
+    print("Merged Components: {}".format(merged_components))
+    return components    
+    
+    
+class UnionFind:
+    def __init__(self, n):
+        """
+        Initialize the union-find structure with 'n' elements.
+        Each element starts as its own parent, meaning each is a separate set.
+        'rank' is used to keep track of the tree height for union by rank.
+        """
+        self.parent = list(range(1, n + 1))
+        self.rank = [0] * n
+        print("Initialized UnionFind:")
+        print("parent:", self.parent)
+        print("rank  :", self.rank)
+        print()
+
+    def find(self, x):
+        """
+        The 'find' function locates the root (representative) of the set
+        containing 'x'. It also applies path compression, so that each visited
+        node directly points to the root, which speeds up future calls.
+        """
+        if self.parent[x] != x:
+            print(f"find({x}): {x} is not its own parent (parent[{x}] = {self.parent[x]}), so compressing path...")
+            self.parent[x] = self.find(self.parent[x])
+        return self.parent[x]
+
+    def union(self, x, y):
+        """
+        The 'union' function merges the sets containing 'x' and 'y'.
+        It first finds the roots of both nodes, and if they are different,
+        it attaches the tree with lower rank to the tree with higher rank.
+        If the ranks are equal, it arbitrarily chooses one as the new root
+        and increments its rank.
+        """
+        print(f"Union({x}, {y}):")
+        rootX = self.find(x)
+        rootY = self.find(y)
+        print(f" - root of {x} is {rootX}")
+        print(f" - root of {y} is {rootY}")
+
+        if rootX == rootY:
+            print(" - Both nodes have the same root; they are already connected.\n")
+            return
+
+        # Union by rank: attach the smaller tree under the larger tree
+        if self.rank[rootX] < self.rank[rootY]:
+            self.parent[rootX] = rootY
+            print(f" - Rank of {rootX} ({self.rank[rootX]}) is lower than rank of {rootY} ({self.rank[rootY]}).")
+            print(f"   Setting parent[{rootX}] = {rootY}")
+        elif self.rank[rootX] > self.rank[rootY]:
+            self.parent[rootY] = rootX
+            print(f" - Rank of {rootY} ({self.rank[rootY]}) is lower than rank of {rootX} ({self.rank[rootX]}).")
+            print(f"   Setting parent[{rootY}] = {rootX}")
+        else:
+            # If ranks are equal, choose one as the new root and increase its rank.
+            self.parent[rootY] = rootX
+            self.rank[rootX] += 1
+            print(f" - Ranks of {rootX} and {rootY} are equal ({self.rank[rootX]-1}).")
+            print(f"   Setting parent[{rootY}] = {rootX} and increasing rank of {rootX} to {self.rank[rootX]}")
+        
+        print(" Current parent array:", self.parent)
+        print(" Current rank array  :", self.rank)
+        print()
+
+
+
+
+
+# 
+
+
+
+
+# Preprocessing
+
+def group_events_by_height(points, edges):
+    """
+    Input is a set of points, and a set of edges.
+    Returns a dict of the form:
+    
+    """
+    events_by_height = {}
+    for point in points:
+        h = point['height']
+        events_by_height.setdefault(h, {'points': [], 'horizontal_edges': [], 'vertical_edges': []})
+        events_by_height[h]['points'].append(point)
+
+    for edge in edges:
+        h = max(edge['height'])
+        events_by_height.setdefault(h, {'points': [], 'horizontal_edges': [], 'vertical_edges': []})
+        if min(edge['height'])==max(edge['height']):
+            events_by_height[h]['horizontal_edges'].append(edge)
+            print('Edge {} is horizontal.'.format(edge))
+        else:
+            events_by_height[h]['vertical_edges'].append(edge)
+    return events_by_height
+
+
+
+def process_graph(vertices, edges, direction):
+    """
+        The input are vertices and edges and a direction.
+        
+        The output is a graph ordered by height, and by x,y,z. The normal vectors are replaced with the sign.
+    """
+    processed_graph = order_graph(vertices, edges)
+    signed_graph = obtain_sign(processed_graph, direction)
+    return signed_graph
+
+def subdivide_edges(edges: list) -> list:
+    '''Input: List of edges formated as 
+    edge = ['vertices': [index_i, index_j], 'height': [height_i, height_j], 'n': n]
+    Output: Partitions the edges for processing in two steps.
+    A list containing two lists of edges, the first entry is horizontal edges.
+    '''
+    horizontal_edges = []
+    angled_edges = []
+    for edge in edges:
+        if min(edge['height'])==max(edge['height']):
+            horizontal_edges.append(edge)
+            print('Edge {} is horizontal.'.format(edge))
+        else:
+            angled_edges.append(edge)
+    return [horizontal_edges, angled_edges]
+
+# obtain_sign, sign, and order_graph are helper functions for process_graph. 
+
+def obtain_sign(graph, direction: list) -> list:
+    points, edges = graph
+    signed_points = []
+    signed_edges = []
+    for point in points:
+        point['sign'] = sign(point['normal'], direction)
+        del point['normal']
+        signed_points.append(point)
+    for e in edges:
+        signed_edges.append({'vertices': e['vertices'], 'height': e['height'], 'sign': sign(e['n'], direction)})
+    return [signed_points, signed_edges]
+
+def sign(v_1,v_2):
+    product = v_1[0] * v_2[0] +  v_1[1] * v_2[1] + v_1[2] * v_2[2]
+    sign = 0
+    if product > 0:
+        sign = 1
+    elif product < 0:
+        sign = -1
+    return sign
+
+def order_graph(vertices, edges):
+    """
+        The input are vertices and edges.
+        {'coordinates': [i, j, k], 'original_index': idx, 'new_index': idx, 'height': h, 'normal': n}
+        {'vertices': [e, l], 'height': [h_0,h_1], 'n': n}
+        
+        The output is a graph ordered by height, and by x,y,z.
+    """
+
+    # Step 1: Sort the vertices
+    sorted_vertices = sorted(
+        vertices,
+        key=lambda v: (v['height'], v['coordinates'][0], v['coordinates'][1], v['coordinates'][2])
+    )
+
+    # Step 2: Relabel the vertices
+    original_to_new_index = {}
+    for new_index, vertex in enumerate(sorted_vertices):
+        new_index += 1
+        original_index = vertex['original_index']
+        original_to_new_index[original_index] = new_index
+        vertex['new_index'] = new_index
+
+    
+    # Step 3: Update the edges
+    for edge in edges:
+        # Map old indices to new indices and sort them within the edge
+        new_indices = [original_to_new_index[vi] for vi in edge['vertices']]
+        edge['vertices'] = new_indices
+    # Step 4: Sort the edges
+    sorted_edges = sorted(
+        edges,
+        key=lambda e: (max(e['height']), min(e['vertices']))
+    )
+    
+    output_vertices = [ v for v in sorted_vertices ]
+    output_edges = [ {'vertices': e['vertices'], 'height': e['height'], 'n': e['n'] } for e in sorted_edges ]
+    return [output_vertices, output_edges]
+
+def height_of_vertex(direction, point):
+    height = 0
+    for n in list(range(3)):
+        height_squared = direction[n] * point[n]
+        height += height_squared
+    return height
+
+
+# Formatting Edges and Vertices
+
+def format_vertices(vertices: list) -> list:
+    # Input: [coord, height, vector n]
+    new_vertices = []
+    n = 1
+    for vertex in vertices:
+        new_vertices.append({'coordinates': vertex[0], 
+                             'original_index': n, 
+                             'new_index': None,
+                             'height': vertex[1],
+                             'normal': vertex[2]
+                            })
+        n += 1
+    return new_vertices
+
+
+def format_edges(points: list, edges: list) -> list:
+    # Input: []
+    formatted_edges = []
+    for edge in edges:
+        l_vertex_index = edge[0][0]
+        r_vertex_index = edge[0][1]
+        l_height = points[l_vertex_index - 1]['height']
+        r_height = points[r_vertex_index - 1]['height']
+        formatted_edges.append({'vertices': [l_vertex_index, r_vertex_index], 'height': [l_height, r_height], 'n': edge[1]})
+    return formatted_edges
+
+
+
+
+
+
+
+
+
+#deprecated
+def format_graph(graph):
+    vertices, edges = graph
+    formatted_vertices = [ {'coords': vertex[0], 'h': vertex[1], 'n': vertex[2], 'original_index': index + 1} for index, vertex in enumerate(vertices) ] 
+    formatted_edges = [ {'vertices': edge[0], 'height': edge[1], 'n': edge[2]} for edge in edges]
+    return [formatted_vertices, formatted_edges]
 
 
 def compute_critical_points(graph):
@@ -117,136 +394,3 @@ def compute_critical_points(graph):
                 recorded_roots.add(root_i)
 
     return new_components, merges
-
-# 
-
-
-
-
-# Preprocessing
-
-def group_events_by_height(points, edges):
-    """
-    Input is a set of points, and a set of edges.
-    Returns a dict of the form:
-    
-    """
-    events_by_height = {}
-    for i, h, n in points:
-        events_by_height.setdefault(h, {'points': [], 'horizontal_edges': [], 'vertical_edges': []})
-        events_by_height[h]['points'].append((i, h, n))
-
-    for edge in edges:
-        h = max(edge['height'])
-        events_by_height.setdefault(h, {'points': [], 'horizontal_edges': [], 'vertical_edges': []})
-        if min(edge['height'])==max(edge['height']):
-            events_by_height[h]['horizontal_edges'].append(edge)
-            print('Edge {} is horizontal.'.format(edge))
-        else:
-            events_by_height[h]['vertical_edges'].append(edge)
-    return events_by_height
-
-
-
-def format_graph(graph):
-    vertices, edges = graph
-    formatted_vertices = [ {'coords': vertex[0], 'h': vertex[1], 'n': vertex[2], 'original_index': index + 1} for index, vertex in enumerate(vertices) ] 
-    formatted_edges = [ {'vertices': edge[0], 'height': edge[1], 'n': edge[2]} for edge in edges]
-    return [formatted_vertices, formatted_edges]
-
-
-def process_graph(vertices, edges, direction):
-    """
-        The input are vertices and edges and a direction.
-        
-        The output is a graph ordered by height, and by x,y,z. The normal vectors are replaced with the sign.
-    """
-    processed_graph = order_graph(vertices, edges)
-    signed_graph = obtain_sign(processed_graph, direction)
-    return signed_graph
-
-def subdivide_edges(edges: list) -> list:
-    '''Input: List of edges formated as 
-    edge = ['vertices': [index_i, index_j], 'height': [height_i, height_j], 'n': n]
-    Output: Partitions the edges for processing in two steps.
-    A list containing two lists of edges, the first entry is horizontal edges.
-    '''
-    horizontal_edges = []
-    angled_edges = []
-    for edge in edges:
-        if min(edge['height'])==max(edge['height']):
-            horizontal_edges.append(edge)
-            print('Edge {} is horizontal.'.format(edge))
-        else:
-            angled_edges.append(edge)
-    return [horizontal_edges, angled_edges]
-
-# obtain_sign, sign, and order_graph are helper functions for process_graph. 
-
-def obtain_sign(graph, direction: list) -> list:
-    points, edges = graph
-    signed_points = []
-    signed_edges = []
-    for point in points:
-        signed_points.append([point[0],point[1],sign(point[2], direction)])
-    for e in edges:
-        signed_edges.append({'vertices': e['vertices'], 'height': e['height'], 'sign': sign(e['n'], direction)})
-    return [signed_points, signed_edges]
-
-def sign(v_1,v_2):
-    product = v_1[0] * v_2[0] +  v_1[1] * v_2[1] + v_1[2] * v_2[2]
-    sign = 0
-    if product > 0:
-        sign = 1
-    elif product < 0:
-        sign = -1
-    return sign
-
-def order_graph(vertices, edges):
-    """
-        The input are vertices and edges.
-        {'coords': [i, j, k], 'h': h, 'n': n, 'original_index': idx}
-        {'vertices': [e, l], 'height': [h_0,h_1], 'n': n}
-        
-        The output is a graph ordered by height, and by x,y,z.
-    """
-
-    # Step 1: Sort the vertices
-    sorted_vertices = sorted(
-        vertices,
-        key=lambda v: (v['h'], v['coords'][0], v['coords'][1], v['coords'][2])
-    )
-
-    # Step 2: Relabel the vertices
-    original_to_new_index = {}
-    for new_index, vertex in enumerate(sorted_vertices):
-        new_index += 1
-        original_index = vertex['original_index']
-        original_to_new_index[original_index] = new_index
-        vertex['new_index'] = new_index
-
-    
-    # Step 3: Update the edges
-    for edge in edges:
-        # Map old indices to new indices and sort them within the edge
-        new_indices = [original_to_new_index[vi] for vi in edge['vertices']]
-        new_indices.sort()
-        edge['vertices'] = new_indices
-    # Step 4: Sort the edges
-    sorted_edges = sorted(
-        edges,
-        key=lambda e: (max(e['height']), min(e['vertices']))
-    )
-    
-    output_vertices = [ [v['new_index'], v['h'], v['n'] ] for v in sorted_vertices ]
-    output_edges = [ {'vertices': e['vertices'], 'height': e['height'], 'n': e['n'] } for e in sorted_edges ]
-    return [output_vertices, output_edges]
-
-def height_of_vertex(direction, point):
-    height = 0
-    for n in list(range(3)):
-        height_squared = direction[n] * point[n]
-        height += height_squared
-    return height
-
-
