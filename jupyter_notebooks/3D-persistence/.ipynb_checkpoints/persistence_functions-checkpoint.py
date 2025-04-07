@@ -41,14 +41,14 @@ def compute_vertical_step(previous_components: list, current_components: list, a
     
     
 class UnionFind:
-    def __init__(self, n):
+    def __init__(self, vertices: list[dict]):
         """
         Initialize the union-find structure with 'n' elements.
         Each element starts as its own parent, meaning each is a separate set.
-        'rank' is used to keep track of the tree height for union by rank.
+        'rank' is the vertex index for union by rank.
         """
-        self.parent = list(range(1, n + 1))
-        self.rank = [0] * n
+        self.parent = list(range(len(vertices)))
+        self.rank = list(range(len(vertices)))
         print("Initialized UnionFind:")
         print("parent:", self.parent)
         print("rank  :", self.rank)
@@ -60,6 +60,8 @@ class UnionFind:
         containing 'x'. It also applies path compression, so that each visited
         node directly points to the root, which speeds up future calls.
         """
+        print(x)
+        print(self.parent[x])
         if self.parent[x] != x:
             print(f"find({x}): {x} is not its own parent (parent[{x}] = {self.parent[x]}), so compressing path...")
             self.parent[x] = self.find(self.parent[x])
@@ -84,27 +86,22 @@ class UnionFind:
             return
 
         # Union by rank: attach the smaller tree under the larger tree
-        if self.rank[rootX] < self.rank[rootY]:
+        if self.rank[rootX] > self.rank[rootY]:
             self.parent[rootX] = rootY
             print(f" - Rank of {rootX} ({self.rank[rootX]}) is lower than rank of {rootY} ({self.rank[rootY]}).")
             print(f"   Setting parent[{rootX}] = {rootY}")
-        elif self.rank[rootX] > self.rank[rootY]:
+        elif self.rank[rootX] < self.rank[rootY]:
             self.parent[rootY] = rootX
             print(f" - Rank of {rootY} ({self.rank[rootY]}) is lower than rank of {rootX} ({self.rank[rootX]}).")
             print(f"   Setting parent[{rootY}] = {rootX}")
         else:
             # If ranks are equal, choose one as the new root and increase its rank.
             self.parent[rootY] = rootX
-            self.rank[rootX] += 1
-            print(f" - Ranks of {rootX} and {rootY} are equal ({self.rank[rootX]-1}).")
-            print(f"   Setting parent[{rootY}] = {rootX} and increasing rank of {rootX} to {self.rank[rootX]}")
+            print("This should not be happening.")
         
         print(" Current parent array:", self.parent)
         print(" Current rank array  :", self.rank)
         print()
-
-
-
 
 
 # 
@@ -226,7 +223,7 @@ def order_graph(vertices, edges):
     output_edges = [ {'vertices': e['vertices'], 'height': e['height'], 'n': e['n'] } for e in sorted_edges ]
     return [output_vertices, output_edges]
 
-def height_of_vertex(direction, point):
+def height_of_vertex(direction: list, point: list):
     height = 0
     for n in list(range(3)):
         height_squared = direction[n] * point[n]
