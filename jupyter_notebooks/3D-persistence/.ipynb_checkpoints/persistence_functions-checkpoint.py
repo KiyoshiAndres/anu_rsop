@@ -202,10 +202,12 @@ def order_graph(vertices, edges):
     # Step 2: Relabel the vertices
     original_to_new_index = {}
     for new_index, vertex in enumerate(sorted_vertices):
-        new_index += 1
         original_index = vertex['original_index']
         original_to_new_index[original_index] = new_index
         vertex['new_index'] = new_index
+
+    print("dictionary of indices")
+    print(original_to_new_index)
 
     
     # Step 3: Update the edges
@@ -236,7 +238,7 @@ def height_of_vertex(direction: list, point: list):
 def format_vertices(vertices: list) -> list:
     # Input: [coord, height, vector n]
     new_vertices = []
-    n = 1
+    n = 0
     for vertex in vertices:
         new_vertices.append({'coordinates': vertex[0], 
                              'original_index': n, 
@@ -254,11 +256,23 @@ def format_edges(points: list, edges: list) -> list:
     for edge in edges:
         l_vertex_index = edge[0][0]
         r_vertex_index = edge[0][1]
-        l_height = points[l_vertex_index - 1]['height']
-        r_height = points[r_vertex_index - 1]['height']
+        l_height = points[l_vertex_index]['height']
+        r_height = points[r_vertex_index]['height']
         formatted_edges.append({'vertices': [l_vertex_index, r_vertex_index], 'height': [l_height, r_height], 'n': edge[1]})
     return formatted_edges
 
+
+# Helper Functions
+
+def reindex_edges(edges: list[int, int]) -> list[int, int]:
+    '''
+        Input: list of edges [m,n] where m,n >= 1 (indexing starts at 1)
+        Output: same list of edges [m-1,n-1]
+    '''
+    reindexed_edges = []
+    for edge in edges:
+        reindexed_edges.append([edge[0] - 1, edge[1] - 1])
+    return reindexed_edges
 
 
 
