@@ -60,8 +60,6 @@ class UnionFind:
         containing 'x'. It also applies path compression, so that each visited
         node directly points to the root, which speeds up future calls.
         """
-        print(x)
-        print(self.parent[x])
         if self.parent[x] != x:
             print(f"find({x}): {x} is not its own parent (parent[{x}] = {self.parent[x]}), so compressing path...")
             self.parent[x] = self.find(self.parent[x])
@@ -83,21 +81,19 @@ class UnionFind:
 
         if rootX == rootY:
             print(" - Both nodes have the same root; they are already connected.\n")
-            return
+            return [rootX, rootY]
 
         # Union by rank: attach the smaller tree under the larger tree
         if self.rank[rootX] > self.rank[rootY]:
             self.parent[rootX] = rootY
-            print(f" - Rank of {rootX} ({self.rank[rootX]}) is lower than rank of {rootY} ({self.rank[rootY]}).")
-            print(f"   Setting parent[{rootX}] = {rootY}")
         elif self.rank[rootX] < self.rank[rootY]:
             self.parent[rootY] = rootX
-            print(f" - Rank of {rootY} ({self.rank[rootY]}) is lower than rank of {rootX} ({self.rank[rootX]}).")
-            print(f"   Setting parent[{rootY}] = {rootX}")
         else:
-            # If ranks are equal, choose one as the new root and increase its rank.
+            # If ranks are equal, default to the first.
             self.parent[rootY] = rootX
             print("This should not be happening.")
+
+        return [rootX, rootY]
         
         print(" Current parent array:", self.parent)
         print(" Current rank array  :", self.rank)
@@ -253,12 +249,14 @@ def format_vertices(vertices: list) -> list:
 def format_edges(points: list, edges: list) -> list:
     # Input: []
     formatted_edges = []
+    print(edges)
     for edge in edges:
         l_vertex_index = edge[0][0]
         r_vertex_index = edge[0][1]
         l_height = points[l_vertex_index]['height']
         r_height = points[r_vertex_index]['height']
         formatted_edges.append({'vertices': [l_vertex_index, r_vertex_index], 'height': [l_height, r_height], 'n': edge[1]})
+    print(formatted_edges)
     return formatted_edges
 
 
