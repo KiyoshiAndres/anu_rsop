@@ -61,7 +61,6 @@ class UnionFind:
         node directly points to the root, which speeds up future calls.
         """
         if self.parent[x] != x:
-            print(f"find({x}): {x} is not its own parent (parent[{x}] = {self.parent[x]}), so compressing path...")
             self.parent[x] = self.find(self.parent[x])
         return self.parent[x]
 
@@ -76,24 +75,26 @@ class UnionFind:
         print(f"Union({x}, {y}):")
         rootX = self.find(x)
         rootY = self.find(y)
+        rankX = self.rank[rootX]
+        rankY = self.rank[rootY]
         print(f" - root of {x} is {rootX}")
         print(f" - root of {y} is {rootY}")
 
         if rootX == rootY:
             print(" - Both nodes have the same root; they are already connected.\n")
-            return [rootX, rootY]
+            return {x: {'root': rootX, 'rank': rankX}, y: {'root': rootY, 'rank': rankY}}
 
         # Union by rank: attach the smaller tree under the larger tree
-        if self.rank[rootX] > self.rank[rootY]:
+        if rankX > rankY:
             self.parent[rootX] = rootY
-        elif self.rank[rootX] < self.rank[rootY]:
+        elif rankX < rankY:
             self.parent[rootY] = rootX
         else:
             # If ranks are equal, default to the first.
             self.parent[rootY] = rootX
             print("This should not be happening.")
 
-        return [rootX, rootY]
+        return {x: {'root': rootX, 'rank': rankX}, y: {'root': rootY, 'rank': rankY}}
         
         print(" Current parent array:", self.parent)
         print(" Current rank array  :", self.rank)
@@ -231,6 +232,17 @@ def height_of_vertex(direction: list, point: list):
 
 # Formatting Edges and Vertices
 
+def append_height_vertices(direction: list[int, int, int], vertices: list):
+    '''Input:
+        List of vertices [
+    
+    '''
+    new_vertices = []
+    for vertex in vertices:
+        height = height_of_vertex(direction, vertex[0])
+        new_vertices.append([vertex[0],height, vertex[1]])
+    return new_vertices
+
 def format_vertices(vertices: list) -> list:
     # Input: [coord, height, vector n]
     new_vertices = []
@@ -249,14 +261,16 @@ def format_vertices(vertices: list) -> list:
 def format_edges(points: list, edges: list) -> list:
     # Input: []
     formatted_edges = []
-    print(edges)
     for edge in edges:
+        print('edges---------------------------------')
+        print(edge)
         l_vertex_index = edge[0][0]
         r_vertex_index = edge[0][1]
         l_height = points[l_vertex_index]['height']
         r_height = points[r_vertex_index]['height']
+        print(l_vertex_index)
+        print(r_vertex_index)
         formatted_edges.append({'vertices': [l_vertex_index, r_vertex_index], 'height': [l_height, r_height], 'n': edge[1]})
-    print(formatted_edges)
     return formatted_edges
 
 
