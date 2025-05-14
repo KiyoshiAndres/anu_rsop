@@ -1,3 +1,16 @@
+# Compute
+
+
+class ConnectedComponents:
+    def __init__(self, ):
+
+
+    def horizontal_step(self, edges: list):
+        for edge in edges:
+            x ,y = edge['vertices']
+            uf.union(x, y)
+
+
 def compute_components(vertices: list, filtration: list):
     # Union-Find (Disjoint Set) Implementation with Detailed Debugging
     uf = UnionFind(len(vertices))
@@ -101,12 +114,21 @@ class UnionFind:
         print()
 
 
-# 
 
 
+# Conditional Helper Functions
 
+def reindex_edges(edges: list[int, int]) -> list[int, int]:
+    '''
+        Input: list of edges [m,n] where m,n >= 1 (indexing starts at 1)
+        Output: same list of edges [m-1,n-1]
+    '''
+    reindexed_edges = []
+    for edge in edges:
+        reindexed_edges.append([edge[0] - 1, edge[1] - 1])
+    return reindexed_edges
 
-# Preprocessing
+# Pre-Processing Functions
 
 def group_events_by_height(points, edges):
     """
@@ -130,8 +152,6 @@ def group_events_by_height(points, edges):
             events_by_height[h]['vertical_edges'].append(edge)
     return events_by_height
 
-
-
 def process_graph(vertices, edges, direction):
     """
         The input are vertices and edges and a direction.
@@ -139,9 +159,8 @@ def process_graph(vertices, edges, direction):
         The output is a graph ordered by height, and by x,y,z. The normal vectors are replaced with the sign.
     """
     processed_graph = order_graph(vertices, edges)
-    graph = [processed_graph['vertices'], processed_graph['edges']]
-    signed_graph = obtain_sign(graph, direction)
-    return {'signed_graph': signed_graph, 'index_translation': processed_graph['index_translation']}
+    signed_graph = obtain_sign(processed_graph, direction)
+    return signed_graph
 
 def subdivide_edges(edges: list) -> list:
     '''Input: List of edges formated as 
@@ -158,6 +177,37 @@ def subdivide_edges(edges: list) -> list:
         else:
             angled_edges.append(edge)
     return [horizontal_edges, angled_edges]
+
+# Formatting Edges and Vertices
+
+def format_vertices(vertices: list) -> list:
+    # Input: [coord, height, vector n]
+    new_vertices = []
+    n = 0
+    for vertex in vertices:
+        new_vertices.append({'coordinates': vertex[0], 
+                             'original_index': n, 
+                             'new_index': None,
+                             'height': vertex[1],
+                             'normal': vertex[2]
+                            })
+        n += 1
+    return new_vertices
+
+def format_edges(points: list, edges: list[[int,int],[int,int,int]]) -> list:
+    # Input: [[int,int], [int,int,int]]
+    formatted_edges = []
+    for edge in edges:
+        print('edges---------------------------------')
+        print(edge)
+        l_vertex_index = edge[0][0]
+        r_vertex_index = edge[0][1]
+        l_height = points[l_vertex_index]['height']
+        r_height = points[r_vertex_index]['height']
+        print(l_vertex_index)
+        print(r_vertex_index)
+        formatted_edges.append({'vertices': [l_vertex_index, r_vertex_index], 'height': [l_height, r_height], 'n': edge[1]})
+    return formatted_edges
 
 # obtain_sign, sign, and order_graph are helper functions for process_graph. 
 
@@ -221,7 +271,7 @@ def order_graph(vertices, edges):
     
     output_vertices = [ v for v in sorted_vertices ]
     output_edges = [ {'vertices': e['vertices'], 'height': e['height'], 'n': e['n'] } for e in sorted_edges ]
-    return {'vertices': output_vertices, 'edges': output_edges, 'index_translation': original_to_new_index}
+    return [output_vertices, output_edges]
 
 def height_of_vertex(direction: list, point: list):
     height = 0
@@ -229,192 +279,3 @@ def height_of_vertex(direction: list, point: list):
         height_squared = direction[n] * point[n]
         height += height_squared
     return height
-
-
-# Formatting Edges and Vertices
-
-def append_height_vertices(direction: list[int, int, int], vertices: list):
-    '''Input:
-        List of vertices [
-    
-    '''
-    new_vertices = []
-    for vertex in vertices:
-        height = height_of_vertex(direction, vertex[0])
-        new_vertices.append([vertex[0],height, vertex[1]])
-    return new_vertices
-
-def format_vertices(vertices: list) -> list:
-    # Input: [coord, height, vector n]
-    new_vertices = []
-    n = 0
-    for vertex in vertices:
-        new_vertices.append({'coordinates': vertex[0], 
-                             'original_index': n, 
-                             'new_index': None,
-                             'height': vertex[1],
-                             'normal': vertex[2]
-                            })
-        n += 1
-    return new_vertices
-
-
-def format_edges(points: list, edges: list) -> list:
-    # Input: []
-    formatted_edges = []
-    for edge in edges:
-        print('edges---------------------------------')
-        print(edge)
-        l_vertex_index = edge[0][0]
-        r_vertex_index = edge[0][1]
-        l_height = points[l_vertex_index]['height']
-        r_height = points[r_vertex_index]['height']
-        print(l_vertex_index)
-        print(r_vertex_index)
-        formatted_edges.append({'vertices': [l_vertex_index, r_vertex_index], 'height': [l_height, r_height], 'n': edge[1]})
-    return formatted_edges
-
-
-# Helper Functions
-
-def reindex_edges(edges: list[int, int]) -> list[int, int]:
-    '''
-        Input: list of edges [m,n] where m,n >= 1 (indexing starts at 1)
-        Output: same list of edges [m-1,n-1]
-    '''
-    reindexed_edges = []
-    for edge in edges:
-        reindexed_edges.append([edge[0] - 1, edge[1] - 1])
-    return reindexed_edges
-
-
-
-
-
-
-
-
-#deprecated
-def format_graph(graph):
-    vertices, edges = graph
-    formatted_vertices = [ {'coords': vertex[0], 'h': vertex[1], 'n': vertex[2], 'original_index': index + 1} for index, vertex in enumerate(vertices) ] 
-    formatted_edges = [ {'vertices': edge[0], 'height': edge[1], 'n': edge[2]} for edge in edges]
-    return [formatted_vertices, formatted_edges]
-
-
-def compute_critical_points(graph):
-    """
-    This accepts a graph of the shape [points, edges]
-    Where points and edges are lists of the shape:
-    [index, height, vector n]
-    and
-    [[index_i, index_j], height, vector n]
-    respectively.
-    """
-    
-    points, edges = graph
-    
-    events_by_height = group_events_by_height(points, edges)
-    
-    # Mapping from index to height for points
-    height_of_point = {i: h for i, h, n in points}
-
-    # Union-Find Data Structures
-    parent = {}
-    rank = {}
-    earliest_height = {}
-    includes_previous = {}
-
-    # Lists to record events
-    new_components = []  # Records when a point creates a new connected component
-    merges = []          # Records when connected components are merged
-    
-    
-    # Union-Find helper functions
-    def find(u):
-        if parent[u] != u:
-            parent[u] = find(parent[u])  # Path compression
-        return parent[u]
-
-    def union(u, v, current_height):
-        root_u = find(u)
-        root_v = find(v)
-        if root_u != root_v:
-            # Union by rank
-            if rank[root_u] < rank[root_v]:
-                parent[root_u] = root_v
-                root = root_v
-            else:
-                parent[root_v] = root_u
-                root = root_u
-                if rank[root_u] == rank[root_v]:
-                    rank[root_u] += 1
-            # Update earliest_height and includes_previous
-            earliest_height[root] = min(earliest_height[root_u], earliest_height[root_v])
-            includes_previous[root] = (
-                includes_previous[root_u] or
-                includes_previous[root_v] or
-                earliest_height[root] < current_height
-            )
-            return True
-        return False
-    
-    # Processing events in order of height
-    for h in sorted(events_by_height.keys()):
-        current_events = events_by_height[h]
-        # First process edges at height h
-        for (i_j, h_e, n_e) in current_events['edges']:
-            i, j = i_j
-            # Ensure both points are in the union-find structure
-            for idx in [i, j]:
-                if idx not in parent:
-                    parent[idx] = idx
-                    rank[idx] = 0
-                    earliest_height[idx] = height_of_point[idx]
-                    includes_previous[idx] = earliest_height[idx] < h
-            # Find roots of both points
-            root_i = find(i)
-            root_j = find(j)
-            if root_i != root_j:
-                # Check if either component includes previous heights
-                includes_prev = (
-                    includes_previous[root_i] or
-                    includes_previous[root_j] or
-                    earliest_height[root_i] < h or
-                    earliest_height[root_j] < h
-                )
-                # Perform the union
-                union(i, j, h)
-                new_root = find(i)
-                # If merging components from previous heights, record the merge
-                if includes_previous[root_i] and includes_previous[root_j]:
-                    # Determine the point causing the merge (the one with height h)
-                    if height_of_point[i] == h:
-                        point_causing_merge = i
-                    elif height_of_point[j] == h:
-                        point_causing_merge = j
-                    else:
-                        # If neither point has height h, default to one
-                        point_causing_merge = i
-                    merges.append({
-                        'point_causing_merge': [point_causing_merge, height_of_point[point_causing_merge], points[i][2]],
-                        'merged_components': {
-                            'component_1_root': root_i,
-                            'component_2_root': root_j
-                        }
-                    })
-        # Now process points at height h
-        recorded_roots = set()
-        for i, h_i, n_i in current_events['points']:
-            if i not in parent:
-                parent[i] = i
-                rank[i] = 0
-                earliest_height[i] = h_i
-                includes_previous[i] = False
-            root_i = find(i)
-            if earliest_height[root_i] == h and not includes_previous[root_i] and root_i not in recorded_roots:
-                # Record the creation of a new connected component
-                new_components.append({'point': [i, h_i, n_i]})
-                recorded_roots.add(root_i)
-
-    return new_components, merges

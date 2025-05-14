@@ -139,8 +139,9 @@ def process_graph(vertices, edges, direction):
         The output is a graph ordered by height, and by x,y,z. The normal vectors are replaced with the sign.
     """
     processed_graph = order_graph(vertices, edges)
-    signed_graph = obtain_sign(processed_graph, direction)
-    return signed_graph
+    graph = [processed_graph['vertices'], processed_graph['edges']]
+    signed_graph = obtain_sign(graph, direction)
+    return {'signed_graph': signed_graph, 'index_translation': processed_graph['index_translation']}
 
 def subdivide_edges(edges: list) -> list:
     '''Input: List of edges formated as 
@@ -220,7 +221,7 @@ def order_graph(vertices, edges):
     
     output_vertices = [ v for v in sorted_vertices ]
     output_edges = [ {'vertices': e['vertices'], 'height': e['height'], 'n': e['n'] } for e in sorted_edges ]
-    return [output_vertices, output_edges]
+    return {'vertices': output_vertices, 'edges': output_edges, 'index_translation': original_to_new_index}
 
 def height_of_vertex(direction: list, point: list):
     height = 0
