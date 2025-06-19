@@ -263,14 +263,10 @@ def format_edges(points: list, edges: list) -> list:
     # Input: []
     formatted_edges = []
     for edge in edges:
-        print('edges---------------------------------')
-        print(edge)
         l_vertex_index = edge[0][0]
         r_vertex_index = edge[0][1]
         l_height = points[l_vertex_index]['height']
         r_height = points[r_vertex_index]['height']
-        print(l_vertex_index)
-        print(r_vertex_index)
         formatted_edges.append({'vertices': [l_vertex_index, r_vertex_index], 'height': [l_height, r_height], 'n': edge[1]})
     return formatted_edges
 
