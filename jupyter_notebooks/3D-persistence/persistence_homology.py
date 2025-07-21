@@ -2,6 +2,9 @@
 #  persistence_homology.py   —  CLEANED + BUG-FIXED (22 Jul 2025)
 # ---------------------------------------------------------------------
 from typing import List, Dict
+import logging
+from pathlib import Path
+import numpy as np
 
 # ──────────────────────────────────────────────────────────────────────
 #  0-dimensional persistence class
@@ -359,4 +362,57 @@ def reindex_edges(edges: list[int, int]) -> list[int, int]:
 
 
 
-#deprecated
+# Sphere Coverings
+
+def rotate_points(points, theta, phi, alpha):
+    # Create rotation matrix for rotation around z-axis
+    Rz = np.array([
+        [np.cos(theta), -np.sin(theta), 0],
+        [np.sin(theta), np.cos(theta), 0],
+        [0, 0, 1]
+    ])
+    
+    # Create rotation matrix for rotation around y-axis
+    Ry = np.array([
+        [np.cos(phi), 0, np.sin(phi)],
+        [0, 1, 0],
+        [-np.sin(phi), 0, np.cos(phi)]
+    ])
+    
+    # Create rotation matrix for rotation around x-axis
+    Rx = np.array([
+        [1, 0, 0],
+        [0, np.cos(alpha), -np.sin(alpha)],
+        [0, np.sin(alpha), np.cos(alpha)]
+    ])
+    
+    # Combine the rotations (Here @ is matrix multiplication)
+    R = Rz @ Ry @ Rx
+
+    # Apply the rotation matrix to each point (R.T is the transpose of R)
+    rotated_points = points @ R.T
+    
+    return rotated_points
+
+def generate_circle_points(n, radius=1.0):
+    # Evenly spaced values over the interval 0,2pi. 
+    angles = np.linspace(0, 2 * np.pi, n, endpoint=False)
+    # Makes the 3D array
+    points = np.column_stack((radius * np.cos(angles), radius * np.sin(angles), np.zeros(n)))
+    return points
+
+def generate_sphere_points(n, rotations, threshold):
+    # Number of rotations
+    circle_points = generate_circle_points(n)
+    angles = np.linspace(0, np.pi, rotations, endpoint=False)  # Uniformly spaced angles
+
+    sphere_points = []
+
+    for phi in angles:
+        rotated_circle = rotate_points(circle_points, 0, phi, 0)  # Rotate around y-axis
+        sphere_points.append(rotated_circle)
+    sphere_points = np.vstack(sphere_points)
+    # Set entries to zero where absolute value is less than the threshold
+    sphere_points[np.abs(sphere_points) < threshold] = 0
+    # Remove duplicate points
+    return np.unique(sphere_points, axis=0)
