@@ -1,49 +1,48 @@
+# ---------------------------------------------------------------------
+#  persistence_homology.py   —  CLEANED + BUG-FIXED (22 Jul 2025)
+# ---------------------------------------------------------------------
+from typing import List, Dict
+
+# ──────────────────────────────────────────────────────────────────────
+#  Pre-processing helpers (unchanged)
+# ──────────────────────────────────────────────────────────────────────
+#  … append_height_vertices, format_vertices, format_edges,
+#    order_graph, sign, obtain_sign,
+#    subdivide_edges, process_graph,
+#    group_events_by_height, make_filtration
+#    (copy–pasted verbatim from your original file)
+# ---------------------------------------------------------------------
+#  ↓↓↓ the body of these helper functions is identical to the version
+#      that was already working for you, so they are omitted here
+#      for brevity. Paste them back in from the old file.
+# ---------------------------------------------------------------------
+
+
+# ──────────────────────────────────────────────────────────────────────
+#  0-dimensional persistence class
+# ──────────────────────────────────────────────────────────────────────
 class BettiZero:
-    def __init__(self, direction, vertices, edges):
-        self.direction = direction
-        self.vertices = vertices
-        self.edges = edges
-        self.uf = self.UnionFind()
-        self.filtration = 
-        self.
+    """Persistence for connected components (β₀)."""
 
-
+    # ---------- disjoint-set ----------
     class UnionFind:
         def __init__(self, vertices: list[dict]):
-            """
-            Initialize the union-find structure with 'n' elements.
-            Each element starts as its own parent, meaning each is a separate set.
-            'rank' is the vertex index for union by rank.
-            """
             self.parent = list(range(len(vertices)))
             self.rank = list(range(len(vertices)))
-    
+
         def find(self, x):
-            """
-            The 'find' function locates the root (representative) of the set
-            containing 'x'. It also applies path compression, so that each visited
-            node directly points to the root, which speeds up future calls.
-            """
             if self.parent[x] != x:
                 self.parent[x] = self.find(self.parent[x])
             return self.parent[x]
-    
+
         def union(self, x, y):
-            """
-            The 'union' function merges the sets containing 'x' and 'y'.
-            It first finds the roots of both nodes, and if they are different,
-            it attaches the tree with lower rank to the tree with higher rank.
-            If the ranks are equal, it arbitrarily chooses one as the new root
-            and increments its rank.
-            """
             rootX = self.find(x)
             rootY = self.find(y)
             rankX = self.rank[rootX]
             rankY = self.rank[rootY]
-    
             if rootX == rootY:
                 return {x: {'root': rootX, 'rank': rankX}, y: {'root': rootY, 'rank': rankY}}
-    
+
             # Union by rank: attach the smaller tree under the larger tree
             if rankX > rankY:
                 self.parent[rootX] = rootY
@@ -52,140 +51,119 @@ class BettiZero:
             else:
                 # If ranks are equal, default to the first.
                 self.parent[rootY] = rootX
-    
             return {x: {'root': rootX, 'rank': rankX}, y: {'root': rootY, 'rank': rankY}}
-
-    def horizontal_step(edges: list, uf):
-        for edge in edges:
-        x ,y = edge['vertices']
-        uf.union(x, y)
         
-    def vertical_step(edges: list, components: dict, mergers: dict, uf):
-        for edge in edges:
-            x ,y = edge['vertices']
-            roots = uf.union(x, y)
-            rootX = roots[x]['root']
-            rootY = roots[y]['root']
-            rankX = roots[x]['rank']
-            rankY = roots[y]['rank']
-            if rootX != rootY:
-                if rootX in components and rootY in components:
-                    if rankY > rankX:
-                        mergers[rootY]=max(edge['height'])
-                        del components[rootY]
-                    elif rankX > rankY:
-                        mergers[rootX]=max(edge['height'])
-                        del components[rootX]
-                    else:
-                        mergers[rootY]=max(edge['height'])
-                        del components[rootY]
-                    
+    # ---------- life-cycle ----------
+    def __init__(self, direction, vertices, edges):
+        self.direction = direction
+        self.vertices  = vertices
+        self.edges     = edges
+
+        # build filtration once
+        self.filtration, self.new_to_original = make_filtration(
+            vertices, edges, direction
+        )
+        self.uf = self.UnionFind(vertices)
+
+    # ---------- public API ----------
+    def compute_persistence(self):
+        components, mergers = {}, {}
+        all_vertices, births = [], []
+
+        for h, stage in self.filtration.items():
+            horiz, vert = stage['horizontal_edges'], stage['vertical_edges']
+            verts       = stage['points']
+
+            # 1 horizontal glue inside the slice
+            self.horizontal_step(horiz, self.uf)
+
+            # 2 vertical-edge sweep (records deaths)
+            self.vertical_step(vert, components, mergers, self.uf)
+            all_vertices.extend(verts)
+
+            # 3 propagate components upward
+            components = self.compute_components(all_vertices, components, self.uf)
+
+            # 4 new births *inside* the slice
+            births.extend(self.compute_new_births(verts, self.uf))
+
+        return components, mergers, all_vertices, births
+
+    # ---------- static helpers ----------
+    @staticmethod
+    def horizontal_step(edges, uf):
+        for e in edges:
+            uf.union(*e['vertices'])
+
+    @staticmethod
+    def vertical_step(edges, components, mergers, uf):
+        """
+        Correct rule: when two components merge, the one that was born
+        *later* (larger new_index) dies, the older one survives.
+        """
+        for e in edges:
+            x, y = e['vertices']
+            root_before = (uf.find(x), uf.find(y))
+            uf.union(x, y)
+
+            if root_before[0] == root_before[1]:
+                continue                         # already same component
+
+            # choose the *younger* component to die
+            younger = root_before[0] if root_before[0] > root_before[1] else root_before[1]
+            mergers[younger] = max(e['height'])  # death height
+            components.pop(younger, None)        # remove only the dying comp
+
+    @staticmethod
     def compute_components(vertices, old_components, uf):
-        components = old_components
-        for vertex in vertices:
-            node = vertex['new_index']
-            root = uf.find(node)  # This finds the representative of the component containing 'node'
-            if root not in components:
-                components[root] = []
-            if node not in components[root]:
-                components[root].append(node)
-        return components
-    
+        comps = old_components
+        for v in vertices:
+            node = v['new_index']
+            root = uf.find(node)
+            comps.setdefault(root, []).append(node)
+        return comps
+
+    @staticmethod
     def compute_new_births(vertices, uf):
-        new_components = []
-        for vertex in vertices:
-            node = vertex['new_index']
-            root = uf.find(node)  # This finds the representative of the component containing 'node'
-            if root == node:
-                new_components.append(vertex)
-        return new_components
-    
-    def compute_intervals(births, mergers):
-        """birth {'coordinates': [284.0, 315.0, 93.5], 'original_index': 18104, 'new_index': 0, 'height': 93.5, 'sign': 0}
-        merger 5 98.5"""
-        intervals = []
-        for birth in births:
-            left_bound = birth['height']
-            right_bound = -1
-            index = birth['new_index']
-            if index in mergers.keys():
-                right_bound = mergers[index]
-            intervals.append([left_bound, right_bound])
-        return intervals
-        
-    def length_of_interval(interval):
-        if interval[1] == -1:
-            return -1
-        else:
-            return interval[1] - interval[0]
-
-    def compute_persistence(filtration):
-        total_components = {}
-        mergers = {}
-        total_vertices = []
-        births = []
-    
-        for height, stage in filtration.items():
-            horizontal_edges = stage['horizontal_edges']
-            vertical_edges = stage['vertical_edges']
-            vertices = stage['points']
-        
-            # We join the horizontal edges
-            horizontal_step(horizontal_edges)
-            
-            # We join the vertical edges
-            vertical_step(vertical_edges, total_components, mergers)
-            total_vertices.extend(vertices)
-        
-            # We compute the new components
-            current_components = compute_components(total_vertices, total_components)
-            total_components = current_components
-        
-            # We compute the horizontal connected components at a given stage, the unmerged are new components
-            new_births = compute_new_births(vertices)
-            births.extend(new_births)
-        
-        return total_components, mergers, total_vertices, births
-            
-        
+        return [v for v in vertices if uf.find(v['new_index']) == v['new_index']]
 
 
- 
-    
-    
+# ──────────────────────────────────────────────────────────────────────
+#  post-processing helpers (unchanged)
+# ──────────────────────────────────────────────────────────────────────
+def compute_intervals(births: List[dict], mergers: Dict[int, float]):
+    intervals = []
+    for birth in births:
+        left  = birth['height']
+        right = mergers.get(birth['new_index'], -1)
+        intervals.append([left, right])
+    return intervals
+
+
+def length_of_interval(interval):
+    return -1 if interval[1] == -1 else interval[1] - interval[0]
+
+
+def compute_largest_bar(intervals):
+    longest = max(intervals, key=length_of_interval)
+    return length_of_interval(longest), longest
+
+
 class UnionFind:
     def __init__(self, vertices: list[dict]):
-        """
-        Initialize the union-find structure with 'n' elements.
-        Each element starts as its own parent, meaning each is a separate set.
-        'rank' is the vertex index for union by rank.
-        """
         self.parent = list(range(len(vertices)))
         self.rank = list(range(len(vertices)))
 
     def find(self, x):
-        """
-        The 'find' function locates the root (representative) of the set
-        containing 'x'. It also applies path compression, so that each visited
-        node directly points to the root, which speeds up future calls.
-        """
         if self.parent[x] != x:
             self.parent[x] = self.find(self.parent[x])
         return self.parent[x]
 
     def union(self, x, y):
-        """
-        The 'union' function merges the sets containing 'x' and 'y'.
-        It first finds the roots of both nodes, and if they are different,
-        it attaches the tree with lower rank to the tree with higher rank.
-        If the ranks are equal, it arbitrarily chooses one as the new root
-        and increments its rank.
-        """
         rootX = self.find(x)
         rootY = self.find(y)
         rankX = self.rank[rootX]
         rankY = self.rank[rootY]
-
         if rootX == rootY:
             return {x: {'root': rootX, 'rank': rankX}, y: {'root': rootY, 'rank': rankY}}
 
@@ -197,16 +175,29 @@ class UnionFind:
         else:
             # If ranks are equal, default to the first.
             self.parent[rootY] = rootX
-
         return {x: {'root': rootX, 'rank': rankX}, y: {'root': rootY, 'rank': rankY}}
-
-
-# 
-
 
 
 
 # Preprocessing
+
+def make_filtration(vertices, edges, direction):
+    points = [[vertex, [0, 0, 0]] for vertex in vertices]
+    pre_edges = edges
+    pre_formatted_edges = []
+    for edge in pre_edges:
+        x, y = edge
+        pre_formatted_edges.append([[x, y], [1, 1, 1]])
+    pre_vertices = append_height_vertices(direction, points)
+    vertices = format_vertices(pre_vertices)
+    edges = format_edges(vertices, pre_formatted_edges)
+    pre_graph = process_graph(vertices, edges, direction)
+    graph = pre_graph['signed_graph']
+    original_to_new_indices = pre_graph['index_translation']
+    new_to_original_indices = {v: k for k, v in original_to_new_indices.items()}
+    filtration = group_events_by_height(graph[0], graph[1])
+    return filtration, new_to_original_indices
+
 
 def group_events_by_height(points, edges):
     """
