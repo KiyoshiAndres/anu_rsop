@@ -4,21 +4,6 @@
 from typing import List, Dict
 
 # ──────────────────────────────────────────────────────────────────────
-#  Pre-processing helpers (unchanged)
-# ──────────────────────────────────────────────────────────────────────
-#  … append_height_vertices, format_vertices, format_edges,
-#    order_graph, sign, obtain_sign,
-#    subdivide_edges, process_graph,
-#    group_events_by_height, make_filtration
-#    (copy–pasted verbatim from your original file)
-# ---------------------------------------------------------------------
-#  ↓↓↓ the body of these helper functions is identical to the version
-#      that was already working for you, so they are omitted here
-#      for brevity. Paste them back in from the old file.
-# ---------------------------------------------------------------------
-
-
-# ──────────────────────────────────────────────────────────────────────
 #  0-dimensional persistence class
 # ──────────────────────────────────────────────────────────────────────
 class BettiZero:
